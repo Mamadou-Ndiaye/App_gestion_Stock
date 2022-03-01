@@ -31,6 +31,7 @@ public class Utilisateur extends  AbstractEntity {
 
     private boolean actived;
 
+    @Embedded
     private  Adresse adresse;
 
     private Date dateDeNaissance;
