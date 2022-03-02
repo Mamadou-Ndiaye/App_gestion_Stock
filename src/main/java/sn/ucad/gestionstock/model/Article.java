@@ -7,14 +7,16 @@ import java.math.BigDecimal;
 
 
 @Builder
-@AllArgsConstructor @NoArgsConstructor @ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
 public class Article extends  AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idArticle;
 
    /* @Id

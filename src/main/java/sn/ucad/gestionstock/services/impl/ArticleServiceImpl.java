@@ -3,6 +3,7 @@ package sn.ucad.gestionstock.services.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sn.ucad.gestionstock.dto.ArticleDto;
 import sn.ucad.gestionstock.exception.EntityNotFoundException;
 import sn.ucad.gestionstock.exception.ErrorCodes;
@@ -16,9 +17,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
-@Service
+@Transactional
 @Slf4j
+@Service
 public class ArticleServiceImpl implements ArticleService {
 
     private  ArticleRepository articleRepository;

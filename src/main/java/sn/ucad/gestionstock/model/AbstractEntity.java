@@ -21,7 +21,7 @@ import java.time.Instant;
 @EntityListeners(AuditingEntityListener.class)  // Ecoute cette classe
 public class AbstractEntity implements Serializable {
 
-    @Id
+    //@Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
 
