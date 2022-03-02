@@ -5,9 +5,10 @@ import org.springframework.data.jpa.repository.Query;
 import sn.ucad.gestionstock.model.Article;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ArticleRepository  extends JpaRepository<Article,Long> {
 
-    @Query("")
-    List<Article>  findByCustomQuery();
+
+    Optional<Article> findArticleByCodeArticle(String codeArticle);
 }
