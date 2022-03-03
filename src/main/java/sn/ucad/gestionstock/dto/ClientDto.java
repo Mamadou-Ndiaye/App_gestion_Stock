@@ -23,7 +23,7 @@ public class ClientDto {
 
     private String prenom;
     // Adresse
-    //@Embedded  // Ce champs est un champs composé on pourra utiliser +sieurs fois dans les autres entités
+   // @Embedded  // Ce champs est un champs composé on pourra utiliser +sieurs fois dans les autres entités
     private AdresseDto adresseDto;
 
     //private String adresse;
@@ -50,7 +50,7 @@ public class ClientDto {
                 .idClient(client.getIdClient())
                 .nom(client.getNom())
                 .prenom(client.getPrenom())
-                //.adresseDto(client.getAdresse())
+                .adresseDto(AdresseDto.fromEntity(client.getAdresse()))
                 .photo(client.getPhoto())
                 .mail(client.getMail())
                 .numTel(client.getNumTel())
@@ -69,7 +69,7 @@ public class ClientDto {
                 .idClient(clientDto.getIdClient())
                 .nom(clientDto.getNom())
                 .prenom(clientDto.getPrenom())
-               // .adresseDto(clientDto.getAdresseDto())
+                //.adresse(ClientDto.toEntity(clientDto.getAdresseDto()))
                 .photo(clientDto.getPhoto())
                 .mail(clientDto.getMail())
                 .numTel(clientDto.getNumTel())

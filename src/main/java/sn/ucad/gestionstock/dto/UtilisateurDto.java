@@ -60,7 +60,7 @@ public class UtilisateurDto {
                  .motDePasse(utilisateur.getMotDePasse())
                  .photo(utilisateur.getPhoto())
                  .adresseDto(AdresseDto.fromEntity(utilisateur.getAdresse()))
-                 //.actived(utilisateur.getActived())
+                 .actived(utilisateur.isActived())
                  .entrepriseDto(EntrepriseDto.fromEntity(utilisateur.getEntreprise()))
                  .build();
     }
@@ -83,7 +83,7 @@ public class UtilisateurDto {
                 .dateDeNaissance(utilisateurDto.getDateDeNaissance())
                .adresse(AdresseDto.toEntity(utilisateurDto.getAdresseDto()))
                 .entreprise(EntrepriseDto.toEntity(utilisateurDto.getEntrepriseDto()))
-               // .actived(utilisateurDto.getActived())
+                .actived(utilisateurDto.isActived())
                 .build();
     }
 }

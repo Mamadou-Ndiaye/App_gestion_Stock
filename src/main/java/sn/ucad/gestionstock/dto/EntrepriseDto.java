@@ -49,7 +49,7 @@ public class EntrepriseDto {
         return  EntrepriseDto.builder()
                 .idEntreprise(entreprise.getIdEntreprise())
                 .nom(entreprise.getNom())
-               // .adresseDto(entreprise.ge)
+                .adresseDto(AdresseDto.fromEntity(entreprise.getAdresse()))
                 .photo(entreprise.getPhoto())
                 .mail(entreprise.getMail())
                 .numTel(entreprise.getNumTel())
@@ -71,6 +71,7 @@ public class EntrepriseDto {
                 .nom(entrepriseDto.getNom())
                 .photo(entrepriseDto.getPhoto())
                 .mail(entrepriseDto.getMail())
+                .adresse(AdresseDto.toEntity(entrepriseDto.getAdresseDto()))
                 .numTel(entrepriseDto.getNumTel())
                 .siteWeb(entrepriseDto.getSiteWeb())
                 .build();
