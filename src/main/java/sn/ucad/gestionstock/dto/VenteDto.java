@@ -24,6 +24,8 @@ public class VenteDto {
    // @Temporal(TemporalType.TIMESTAMP)
     private Date dateVente;
 
+    private Long idEntreprise;
+
     //@OneToMany(mappedBy = "vente")
     @JsonIgnore
     private List<LigneVenteDto> ligneVenteDtos;

@@ -24,8 +24,10 @@ public class LigneVenteDto {
 
     //@JoinColumn(name = "idArticle")
     //@ManyToOne
-    @Getter
     private ArticleDto articleDto;
+
+    private Long idEntreprise;
+
 
     // @JoinColumn(name = "vente")
    // @ManyToOne

@@ -55,6 +55,8 @@ public class CategoryServiceImpl implements CategoryService {
         }
          Optional<Category> categoryDto = categoryRepository.findById(id);
 
+       // return  categoryRepository.findById(id).map(CategoryDto::fromEntity).orElseThrow(()-> new EntityNotFoundException("Aucun category avec ID = "+ id +" n a été trouvé dans la base de donnees",ErrorCodes.CATEGORY_NOT_FOUND));
+
         return Optional.of(CategoryDto.fromEntity(categoryDto.get())).orElseThrow(()-> new EntityNotFoundException("Aucun category avec ID = "+ id + "n'a ete trouve dans la base de donnees",ErrorCodes.CATEGORY_NOT_FOUND));
     }
 

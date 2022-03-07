@@ -31,6 +31,8 @@ public class FournisseurDto {
 
     private  String numTel;
 
+    private Long idEntreprise;
+
     //@OneToMany()
     @JsonIgnore
     private List<CommandeFournisseurDto> commandeFournisseurDtos;

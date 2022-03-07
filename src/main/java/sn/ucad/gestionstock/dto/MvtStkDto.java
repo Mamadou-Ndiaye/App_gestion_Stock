@@ -24,7 +24,10 @@ public class MvtStkDto {
 
     private int typeMvt;
 
-   // @ManyToOne
+    private Long idEntreprise;
+
+
+    // @ManyToOne
     // @JoinColumn(name = "idArticle")
     private ArticleDto articleDto;
 

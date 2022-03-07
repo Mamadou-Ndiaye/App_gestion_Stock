@@ -35,6 +35,8 @@ public class UtilisateurDto {
 
     private boolean  actived;
 
+    private Long idEntreprise;
+
 
     //@OneToMany(mappedBy = "utilisateur")
     @JsonIgnore

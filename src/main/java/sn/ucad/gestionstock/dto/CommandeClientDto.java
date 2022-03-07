@@ -30,6 +30,9 @@ public class CommandeClientDto {
     //@JoinColumn(name = "idClient")
     private ClientDto clientDto;
 
+    private Long idEntreprise;
+
+
     //@OneToMany
     @JsonIgnore
     private List<LigneCommandeClientDto> ligneCommandeClientDtos;
@@ -47,6 +50,7 @@ public class CommandeClientDto {
                   .idCommandeClient(commandeClient.getIdCommandeClient())
                   .code(commandeClient.getCode())
                   .dateCommande(commandeClient.getDateCommande())
+                  .clientDto(ClientDto.fromEntity(commandeClient.getClient()))
                   .build();
     }
 
@@ -62,6 +66,7 @@ public class CommandeClientDto {
                 .idCommandeClient(commandeClientDto.getIdCommandeClient())
                 .code(commandeClientDto.getCode())
                 .dateCommande(commandeClientDto.getDateCommande())
+                .client(ClientDto.toEntity(commandeClientDto.getClientDto()))
                 .build();
 
     }

@@ -34,6 +34,7 @@ public class EntrepriseDto {
 
     private  String siteWeb;
 
+
     //@OneToMany
     @JsonIgnore
     private List<UtilisateurDto> utilisateurDtos;

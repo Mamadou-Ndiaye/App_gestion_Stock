@@ -34,6 +34,8 @@ public class ArticleDto {
 
     private String photo;
 
+    private Long idEntreprise;
+
     // @JoinColumn(name = "idCategory")
     //@ManyToOne
     private CategoryDto  categoryDto;
@@ -54,6 +56,7 @@ public class ArticleDto {
                 .tauxTva(article.getTauxTva())
                 .prixUnitaireTTC(article.getPrixUnitaireTTC())
                 .photo(article.getPhoto())
+                .idEntreprise(article.getIdEntreprise())
                 .categoryDto(CategoryDto.fromEntity(article.getCategory()))
                 .build();
     }
@@ -74,6 +77,7 @@ public class ArticleDto {
                 .tauxTva(articleDto.getTauxTva())
                 .prixUnitaireTTC(articleDto.getPrixUnitaireTTC())
                 .photo(articleDto.getPhoto())
+                .idEntreprise(articleDto.getIdEntreprise())
                 .category(CategoryDto.toEntity(articleDto.getCategoryDto()))
                 .build();
     }

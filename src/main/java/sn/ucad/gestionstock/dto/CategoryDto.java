@@ -23,7 +23,9 @@ public class CategoryDto {
 
     private String designation;
 
-   // @OneToMany(mappedBy = "categoryDto")
+    private Long idEntreprise;
+
+    // @OneToMany(mappedBy = "categoryDto")
     @JsonIgnore
     private List<ArticleDto> articleDtos;
 

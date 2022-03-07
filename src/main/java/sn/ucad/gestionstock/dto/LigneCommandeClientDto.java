@@ -1,5 +1,6 @@
 package sn.ucad.gestionstock.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import sn.ucad.gestionstock.model.Article;
@@ -16,7 +17,7 @@ import java.math.BigDecimal;
 
 @Data
 @Builder
-public class LigneCommandeClientDto {
+public class  LigneCommandeClientDto {
 
 
     private Long idLigneCdeClt;
@@ -25,13 +26,14 @@ public class LigneCommandeClientDto {
     //@ManyToOne
     private ArticleDto articleDto;
 
-    //@ManyToOne
-    // @JoinColumn(name = "idCommandeClient")
+    @JsonIgnore
     private CommandeClientDto commandeClientDto;
 
     private BigDecimal quantite;
 
     private BigDecimal prixUnitaire;
+
+    private Long idEntreprise;
 
     public static LigneCommandeClientDto  fromEntity(LigneCommandeClient ligneCommandeClient)
     {
@@ -43,8 +45,7 @@ public class LigneCommandeClientDto {
 
         return  LigneCommandeClientDto.builder()
                 .idLigneCdeClt(ligneCommandeClient.getIdLigneCdeClt())
-              //  .articleDto(ligneCommandeClient.getArticle())
-               // .commandeClientDto(ligneCommandeClient.getCommandeClient())
+                .articleDto(ArticleDto.fromEntity(ligneCommandeClient.getArticle()))
                 .quantite(ligneCommandeClient.getQuantite())
                 .prixUnitaire(ligneCommandeClient.getPrixUnitaire())
                 .build();
@@ -60,6 +61,7 @@ public class LigneCommandeClientDto {
 
          return  LigneCommandeClient.builder()
                  .idLigneCdeClt(ligneCommandeClientDto.getIdLigneCdeClt())
+                 .article(ArticleDto.toEntity(ligneCommandeClientDto.getArticleDto()))
                  .quantite(ligneCommandeClientDto.getQuantite())
                  .prixUnitaire(ligneCommandeClientDto.getPrixUnitaire())
                  .build();

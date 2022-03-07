@@ -34,6 +34,8 @@ public class ClientDto {
 
     private  String numTel;
 
+    private Long idEntreprise;
+
     // @OneToMany(mappedBy = "clientDto")
     @JsonIgnore
     private List<CommandeClientDto> commandeClientDtos;

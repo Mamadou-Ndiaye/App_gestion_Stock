@@ -28,6 +28,8 @@ public class LigneCommandeFournisseurDto {
     // @JoinColumn(name = "idCommandeFournisseur")
     private CommandeFournisseurDto commandeFournisseurDto;
 
+    private Long idEntreprise;
+
     public static LigneCommandeFournisseurDto  fromEntity(LigneCommandeFournisseur ligneCommandeFournisseur)
     {
         if ( ligneCommandeFournisseur == null)

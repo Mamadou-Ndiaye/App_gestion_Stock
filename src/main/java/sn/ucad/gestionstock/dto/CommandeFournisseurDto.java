@@ -27,6 +27,9 @@ public class CommandeFournisseurDto {
     //@ManyToOne
     private FournisseurDto fournisseurDto;
 
+    private Long idEntreprise;
+
+
     //@OneToMany
     @JsonIgnore
     private List<LigneCommandeFournisseurDto> ligneCommandeFournisseurDtos;

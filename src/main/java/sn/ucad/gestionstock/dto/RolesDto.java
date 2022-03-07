@@ -22,7 +22,9 @@ public class RolesDto {
 
     private String roleName;
 
-   // @ManyToOne
+    private Long idEntreprise;
+
+    // @ManyToOne
     // @JoinColumn(name = "idUtilisateur")
     private UtilisateurDto utilisateurDto;
 
