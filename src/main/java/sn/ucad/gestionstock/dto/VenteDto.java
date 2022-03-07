@@ -42,6 +42,7 @@ public class VenteDto {
                 .idVente(vente.getIdVente())
                 .code(vente.getCode())
                 .dateVente(vente.getDateVente())
+                .idEntreprise(vente.getIdEntreprise())
                 .build();
     }
 
@@ -56,6 +57,7 @@ public class VenteDto {
                 .idVente(venteDto.getIdVente())
                 .code(venteDto.getCode())
                 .dateVente(venteDto.getDateVente())
+                .idEntreprise(venteDto.getIdEntreprise())
                 .build();
     }
 }

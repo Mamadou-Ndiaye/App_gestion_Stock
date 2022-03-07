@@ -19,6 +19,8 @@ public class CommandeFournisseur extends  AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCommandeFournisseur;
 
+    private String code;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCommande;
 

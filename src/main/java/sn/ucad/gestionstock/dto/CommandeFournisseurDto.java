@@ -24,6 +24,8 @@ public class CommandeFournisseurDto {
     //@Temporal(TemporalType.TIMESTAMP)
     private Date dateCommande;
 
+    private String code;
+
     //@ManyToOne
     private FournisseurDto fournisseurDto;
 
@@ -46,7 +48,9 @@ public class CommandeFournisseurDto {
         return  CommandeFournisseurDto.builder()
                 .idCommandeFournisseur(commandeFournisseur.getIdCommandeFournisseur())
                 .dateCommande(commandeFournisseur.getDateCommande())
-               // .fournisseurDto(commandeFournisseur.getFournisseur())
+                .idEntreprise(commandeFournisseur.getIdEntreprise())
+                .code(commandeFournisseur.getCode())
+                .fournisseurDto(FournisseurDto.fromEntity(commandeFournisseur.getFournisseur()))
                 .build();
     }
 
@@ -61,6 +65,9 @@ public class CommandeFournisseurDto {
         return  CommandeFournisseur.builder()
                 .idCommandeFournisseur(commandeFournisseurDto.getIdCommandeFournisseur())
                 .dateCommande(commandeFournisseurDto.getDateCommande())
+                .idEntreprise(commandeFournisseurDto.getIdEntreprise())
+                .code(commandeFournisseurDto.getCode())
+                .fournisseur(FournisseurDto.toEntity(commandeFournisseurDto.getFournisseurDto()))
                 .build();
     }
 }

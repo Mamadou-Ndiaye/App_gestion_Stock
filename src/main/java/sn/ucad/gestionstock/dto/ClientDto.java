@@ -56,6 +56,7 @@ public class ClientDto {
                 .photo(client.getPhoto())
                 .mail(client.getMail())
                 .numTel(client.getNumTel())
+                .idEntreprise(client.getIdEntreprise())
                 .build();
     }
 
@@ -75,6 +76,7 @@ public class ClientDto {
                 .photo(clientDto.getPhoto())
                 .mail(clientDto.getMail())
                 .numTel(clientDto.getNumTel())
+                .idEntreprise(clientDto.getIdEntreprise())
                 .build();
     }
 }

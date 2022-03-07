@@ -51,6 +51,7 @@ public class CommandeClientDto {
                   .code(commandeClient.getCode())
                   .dateCommande(commandeClient.getDateCommande())
                   .clientDto(ClientDto.fromEntity(commandeClient.getClient()))
+                  .idEntreprise(commandeClient.getIdEntreprise())
                   .build();
     }
 
@@ -67,6 +68,8 @@ public class CommandeClientDto {
                 .code(commandeClientDto.getCode())
                 .dateCommande(commandeClientDto.getDateCommande())
                 .client(ClientDto.toEntity(commandeClientDto.getClientDto()))
+                .client(ClientDto.toEntity(commandeClientDto.getClientDto()))
+                .idEntreprise(commandeClientDto.getIdEntreprise())
                 .build();
 
     }

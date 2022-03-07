@@ -40,6 +40,7 @@ public class RolesDto {
                 .idRole(roles.getIdRole())
                 .roleName(roles.getRoleName())
                 .utilisateurDto(UtilisateurDto.fromEntity(roles.getUtilisateur()))
+                .idEntreprise(roles.getIdEntreprise())
                 .build();
     }
 
@@ -54,6 +55,7 @@ public class RolesDto {
                 .idRole(rolesDto.getIdRole())
                 .roleName(rolesDto.getRoleName())
                 .utilisateur(UtilisateurDto.toEntity(rolesDto.getUtilisateurDto()))
+                .idEntreprise(rolesDto.getIdEntreprise())
                 .build();
     }
 }

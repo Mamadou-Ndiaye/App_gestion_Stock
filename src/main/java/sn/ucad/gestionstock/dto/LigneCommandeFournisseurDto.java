@@ -40,6 +40,7 @@ public class LigneCommandeFournisseurDto {
 
         return  LigneCommandeFournisseurDto.builder()
                 .idLigneCdeFrs(ligneCommandeFournisseur.getIdLigneCdeFrs())
+                .idEntreprise(ligneCommandeFournisseur.getIdEntreprise())
                 //.articleDto(ligneCommandeFournisseur.getArticle())
                 //.commandeFournisseurDto(ligneCommandeFournisseur.getCommandeFournisseur())
                 .build();
@@ -55,6 +56,7 @@ public class LigneCommandeFournisseurDto {
 
         return  LigneCommandeFournisseur.builder()
                 .idLigneCdeFrs(ligneCommandeFournisseurDto.getIdLigneCdeFrs())
+                .idEntreprise(ligneCommandeFournisseurDto.getIdEntreprise())
                 .build();
     }
 }

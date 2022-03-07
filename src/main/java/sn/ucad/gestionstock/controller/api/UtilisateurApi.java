@@ -20,7 +20,7 @@ public interface UtilisateurApi {
     @GetMapping(value = APP_ROOT + "/utilisateurs/all")
     List<UtilisateurDto> findAll();
 
-    @GetMapping(value = APP_ROOT + "/utilisateurs/{idUtilisateur}")
+    @PutMapping(value = APP_ROOT + "/utilisateurs/{idUtilisateur}")
     UtilisateurDto update(@PathVariable("idUtilisateur") Long id, @RequestBody UtilisateurDto utilisateurDto);
 
     @GetMapping(value = APP_ROOT + "/utilisateurs/byMail")

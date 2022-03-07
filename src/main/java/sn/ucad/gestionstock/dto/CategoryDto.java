@@ -41,6 +41,7 @@ public class CategoryDto {
         return  CategoryDto.builder()
                 .idCategory(category.getIdCategory())
                 .code(category.getCode())
+                .idEntreprise(category.getIdEntreprise())
                 .designation(category.getDesignation())
                 .build();
     }
@@ -72,6 +73,7 @@ public class CategoryDto {
                 .idCategory(categoryDto.getIdCategory())
                 .code(categoryDto.getCode())
                 .designation(categoryDto.getDesignation())
+                .idEntreprise(categoryDto.getIdEntreprise())
                 .build();
     }
 }

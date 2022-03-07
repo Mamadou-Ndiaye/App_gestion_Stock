@@ -1,6 +1,7 @@
 package sn.ucad.gestionstock.controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import sn.ucad.gestionstock.controller.api.UtilisateurApi;
 import sn.ucad.gestionstock.dto.UtilisateurDto;
@@ -14,6 +15,7 @@ public class UtilisateurController implements UtilisateurApi {
     UtilisateurService utilisateurService;
 
 
+    @Autowired
     public UtilisateurController(UtilisateurService utilisateurService) {
         this.utilisateurService = utilisateurService;
     }

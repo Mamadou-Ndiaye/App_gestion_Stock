@@ -48,6 +48,7 @@ public class  LigneCommandeClientDto {
                 .articleDto(ArticleDto.fromEntity(ligneCommandeClient.getArticle()))
                 .quantite(ligneCommandeClient.getQuantite())
                 .prixUnitaire(ligneCommandeClient.getPrixUnitaire())
+                .idEntreprise(ligneCommandeClient.getIdEntreprise())
                 .build();
     }
 
@@ -64,6 +65,7 @@ public class  LigneCommandeClientDto {
                  .article(ArticleDto.toEntity(ligneCommandeClientDto.getArticleDto()))
                  .quantite(ligneCommandeClientDto.getQuantite())
                  .prixUnitaire(ligneCommandeClientDto.getPrixUnitaire())
+                 .idEntreprise(ligneCommandeClientDto.getIdEntreprise())
                  .build();
     }
 

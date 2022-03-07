@@ -45,6 +45,7 @@ public class LigneVenteDto {
 
        return  LigneVenteDto.builder()
                 .idLigneVente(ligneVente.getIdLigneVente())
+               .idEntreprise(ligneVente.getIdEntreprise())
                 //.articleDto(ligneVente.getArticle())
                 .build();
 
@@ -60,6 +61,7 @@ public class LigneVenteDto {
 
         return  LigneVente.builder()
                  .idLigneVente(ligneVenteDto.getIdLigneVente())
+                .idEntreprise(ligneVenteDto.getIdEntreprise())
                 .build();
     }
 }

@@ -40,7 +40,7 @@ public class Article extends  AbstractEntity {
     @ManyToOne
     private  Category category;
 
-    @OneToMany
+   /* @OneToMany
     private List<LigneVente>  ligneVentes;
 
     @OneToMany
@@ -50,5 +50,5 @@ public class Article extends  AbstractEntity {
     private  List<LigneCommandeFournisseur>  ligneCommandeFournisseurs;
 
     @OneToMany
-    private  List<MvtStk> mvtStks;
+    private  List<MvtStk> mvtStks; */
 }

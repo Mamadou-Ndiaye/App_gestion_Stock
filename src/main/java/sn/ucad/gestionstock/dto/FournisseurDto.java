@@ -53,6 +53,7 @@ public class FournisseurDto {
                 .photo(fournisseur.getPhoto())
                 .mail(fournisseur.getMail())
                 .numTel(fournisseur.getNumTel())
+                .idEntreprise(fournisseur.getIdEntreprise())
                 .build();
     }
 
@@ -72,6 +73,7 @@ public class FournisseurDto {
                 .photo(fournisseurDto.getPhoto())
                 .mail(fournisseurDto.getMail())
                 .numTel(fournisseurDto.getNumTel())
+                .idEntreprise(fournisseurDto.getIdEntreprise())
                 .build();
 
     }
