@@ -4,13 +4,14 @@ package sn.ucad.gestionstock.config;
 import com.flickr4java.flickr.Flickr;
 import com.flickr4java.flickr.FlickrException;
 import com.flickr4java.flickr.REST;
+import com.flickr4java.flickr.RequestContext;
 import com.flickr4java.flickr.auth.Auth;
+import com.flickr4java.flickr.auth.Permission;
 import com.github.scribejava.apis.FlickrApi;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth1AccessToken;
 import com.github.scribejava.core.model.OAuth1RequestToken;
 import com.github.scribejava.core.oauth.OAuth10aService;
-import com.github.scribejava.core.oauth.OAuthService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,27 +29,37 @@ public class FlickrConfiguration {
     @Value("${flickr.apiSecret}")
     private  String apiSecret;
 
-    @Bean
+    @Value("${flickr.appKey}")
+    private  String appKey;
+
+    @Value("${flickr.appSecret}")
+    private  String appSecret;
+
+   /* @Bean
     public Flickr getFlickr() throws IOException, ExecutionException, InterruptedException, FlickrException {
+
         Flickr flickr = new Flickr(apiKey,apiSecret, new REST());
 
-        OAuthService service = new ServiceBuilder(apiKey)
-                .apiKey(apiKey)
+        OAuth10aService service = new ServiceBuilder(apiKey)
+                .apiSecret(apiSecret)
                 .build(FlickrApi.instance(FlickrApi.FlickrPerm.DELETE));
+
+        System.out.println("==================AVANT SAISI=========================");
+
 
         final Scanner scanner = new Scanner(System.in);
 
-        final OAuth1RequestToken requestToken = ((OAuth10aService) service).getRequestToken();
+        final OAuth1RequestToken requestToken = service.getRequestToken();
 
-          final  String  authUrl = ((OAuth10aService) service).getAuthorizationUrl(requestToken);
+        final  String  authUrl = service.getAuthorizationUrl(requestToken);
 
         System.out.println(authUrl);
 
-        System.out.println("PAste it here :::");
+        System.out.println("::: Paste it here ::: !!!");
 
         final  String authVerifier = scanner.nextLine();
 
-        OAuth1AccessToken auth1AccessToken = ((OAuth10aService) service).getAccessToken(requestToken,authVerifier);
+        OAuth1AccessToken auth1AccessToken =  service.getAccessToken(requestToken,authVerifier);
 
         System.out.println(auth1AccessToken.getToken());
         System.out.println(auth1AccessToken.getTokenSecret());
@@ -60,6 +71,27 @@ public class FlickrConfiguration {
         System.out.println(auth.getTokenSecret());
 
         return flickr;
+    }
+*/
+    // Connecter a flickr, pour ainsi faire nos services comme upload Image, Supprimer Image , ettc via notre Application
+    @Bean
+    public Flickr getFlickr(){
+
+        Flickr flickr = new Flickr(apiKey,apiSecret, new REST());
+
+        Auth auth = new Auth();
+
+        auth.setPermission(Permission.DELETE);
+
+        auth.setToken(appKey);
+        auth.setTokenSecret(appSecret);
+
+        RequestContext requestContext = RequestContext.getRequestContext();
+        requestContext.setAuth(auth);
+
+        flickr.setAuth(auth);
+
+        return  flickr;
     }
 
 }
