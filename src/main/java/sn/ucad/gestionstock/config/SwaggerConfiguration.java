@@ -15,7 +15,6 @@ import java.util.Collections;
 import static sn.ucad.gestionstock.utils.Constatnts.APP_ROOT;
 
 @Configuration
-//@EnableSwagger2
 public class SwaggerConfiguration {
    /* @Bean
     public Docket productApi() {
