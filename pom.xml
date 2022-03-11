@@ -64,7 +64,15 @@
 			<version>1.5.10</version>
 		</dependency>-->
 
+
+
 		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
+	<!--	<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
 			<version>3.0.0</version>
@@ -74,7 +82,7 @@
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>3.0.0</version>
-		</dependency>
+		</dependency>-->
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -107,6 +115,45 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
+			<!--<plugin>
+				<groupId>com.github.kongchen</groupId>
+				<artifactId>swagger-maven-plugin</artifactId>
+				<configuration>
+					<apiSources>
+						<apiSource>
+							<info>
+								<title>${project.name}</title>
+								<version>${project.version}</version>
+								<description>${project.description}</description>
+								<contact>
+									<email>mamadou194.ndiaye@ucad.edu.sn</email>
+									<name>Mamadou NDIAYE</name>
+									<url>http://www.contact-url.com</url>
+								</contact>
+							</info>
+							<springmvc>true</springmvc>
+							<locations>
+								<location>sn.ucad.gestionstock.controller</location>
+							</locations>
+							<basePath>http://localhost:8082</basePath>
+							<outputPath>${project.build.directory}</outputPath>
+							<outputFormats>json</outputFormats>
+							<swaggerDirectory>${build.directory}/generated-resources/swagger</swaggerDirectory>
+							<swaggerFileName>${project.name}-swagger</swaggerFileName>
+						</apiSource>
+					</apiSources>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+-->
 		</plugins>
 	</build>
 

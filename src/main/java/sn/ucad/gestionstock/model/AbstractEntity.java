@@ -26,8 +26,7 @@ public class AbstractEntity implements Serializable {
     private  Long id;
 
     @CreatedDate
-    @JsonIgnore
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate", nullable = false, updatable = false)
     private Instant creationDate;
 
      @LastModifiedDate

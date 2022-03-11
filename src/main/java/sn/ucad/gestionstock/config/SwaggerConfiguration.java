@@ -8,7 +8,7 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+//import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Collections;
 
@@ -50,11 +50,11 @@ public class SwaggerConfiguration {
         return apiInfo;
     }*/
     private ApiInfo apiInfo() {
-        return new ApiInfo("MyApp Rest APIs",
-                "APIs for MyApp.",
+        return new ApiInfo("Gestion de Stock Rest APIs",
+                "APIs for Gestion de Stock.",
                 "1.0",
                 "Terms of service",
-                new Contact("Mamadou Ndiaye", "www.org.com", "ndiamamadou@gmail.com"),
+                new Contact("Mamadou Ndiaye", "www.mamadou.ndiayeherokuapp.com", "ndiamamadou@gmail.com"),
                 "License of API",
                 "API license URL",
                 Collections.emptyList());
