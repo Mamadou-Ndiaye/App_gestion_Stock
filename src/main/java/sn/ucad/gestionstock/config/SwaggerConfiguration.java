@@ -62,7 +62,7 @@ public class SwaggerConfiguration {
                 new Contact("Mamadou Ndiaye", "www.mamadou.ndiayeherokuapp.com", "ndiamamadou@gmail.com"),
                 "License of API",
                 "API license URL",
-                Collections.emptyList());
+                Collections.<VendorExtension>emptyList());
     }
 
     @Bean
@@ -71,7 +71,7 @@ public class SwaggerConfiguration {
                 .apiInfo(apiInfo())
                 .groupName("REST API v1")
                 .securityContexts(Collections.singletonList(securityContext()))
-                .securitySchemes(Collections.singletonList(apiKey()))
+                .securitySchemes(Collections.<SecurityScheme>singletonList(apiKey()))
                 .useDefaultResponseMessages(false)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("sn.ucad.gestionstock"))
