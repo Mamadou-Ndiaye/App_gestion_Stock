@@ -1,7 +1,9 @@
 package sn.ucad.gestionstock.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import sn.ucad.gestionstock.model.Category;
 import sn.ucad.gestionstock.model.Roles;
 import sn.ucad.gestionstock.model.Utilisateur;
@@ -16,6 +18,8 @@ import java.math.BigDecimal;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RolesDto {
 
     private Long idRole;

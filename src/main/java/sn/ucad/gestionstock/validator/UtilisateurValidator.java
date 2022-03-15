@@ -13,7 +13,7 @@ public class UtilisateurValidator {
         List<String> errors = new ArrayList<>();
 
 
-        if (utilisateurDto == null)
+       /*if (utilisateurDto == null)
         {
             errors.add("Veuillez renseigner le nom de l'utilisateur");
             errors.add("Veuillez renseigner le prenom de l'utilisateur");
@@ -40,7 +40,7 @@ public class UtilisateurValidator {
         if (utilisateurDto.getDateDeNaissance()== null)
         {
             errors.add("Veuillez renseigner la date de naissance de l'utilisateur");
-        }
+        }*/
         if (utilisateurDto.getAdresseDto()== null)
         {
             errors.add("Veuillez renseigner l'adresse de l'utilisateur");

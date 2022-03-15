@@ -11,7 +11,7 @@ import java.util.Collection;
 
 
 
-public class ExtendUser extends User {
+/*public class ExtendUser extends User {
     @Getter
     @Setter
     private  Long idEntreprise;
@@ -29,4 +29,4 @@ public class ExtendUser extends User {
 
 
 
-}
+}*/

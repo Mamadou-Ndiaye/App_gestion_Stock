@@ -1,6 +1,8 @@
 package sn.ucad.gestionstock.services.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sn.ucad.gestionstock.dto.FournisseurDto;
@@ -27,8 +29,13 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     UtilisateurRepository utilisateurRepository;
 
-    public UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository) {
+
+    private BCryptPasswordEncoder bCryptEncoder;
+
+    @Autowired
+    public UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository,BCryptPasswordEncoder bCryptEncoder) {
         this.utilisateurRepository = utilisateurRepository;
+        this.bCryptEncoder = bCryptEncoder;
     }
 
 
@@ -43,6 +50,8 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             throw  new InvalidEntityException("L'Utilisateur n'est pas valide", ErrorCodes.UTILISATEUR_NOT_VALID);
 
         }
+        utilisateurDto.setMotDePasse(bCryptEncoder.encode(utilisateurDto.getMotDePasse()));
+        log.info(" ******** Mot de Passe *******************{}  " + utilisateurDto.getMotDePasse());
 
         return  UtilisateurDto.fromEntity(utilisateurRepository.save(UtilisateurDto.toEntity(utilisateurDto)));
     }

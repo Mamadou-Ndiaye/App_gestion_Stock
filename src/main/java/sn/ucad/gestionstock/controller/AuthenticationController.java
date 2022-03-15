@@ -8,13 +8,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sn.ucad.gestionstock.dto.auth.AuthenticationRequest;
 import sn.ucad.gestionstock.dto.auth.AuthenticationResponse;
-import sn.ucad.gestionstock.model.auth.ExtendUser;
+//import sn.ucad.gestionstock.model.auth.ExtendUser;
 import sn.ucad.gestionstock.services.auth.ApplicationUserDetailService;
 import sn.ucad.gestionstock.utils.JwtUtil;
 
@@ -35,13 +36,15 @@ public class AuthenticationController {
     @Autowired
     JwtUtil jwtUtil;
 
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptEncoder;
+
     @PostMapping( "/authentication ")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody  AuthenticationRequest authenticationRequest)
     {
-         authenticationManager.authenticate(
-              new UsernamePasswordAuthenticationToken(
-                    authenticationRequest.getLogin(),
-                    authenticationRequest.getPassword()
+         authenticationManager.authenticate( new UsernamePasswordAuthenticationToken(
+                    authenticationRequest.getLogin(), authenticationRequest.getPassword()
               )
          );
 

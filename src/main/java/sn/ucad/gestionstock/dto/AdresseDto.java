@@ -1,7 +1,9 @@
 package sn.ucad.gestionstock.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import sn.ucad.gestionstock.model.Adresse;
 import sn.ucad.gestionstock.model.Category;
 
@@ -9,6 +11,8 @@ import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Builder
 public class AdresseDto {
