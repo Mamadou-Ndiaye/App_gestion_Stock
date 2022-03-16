@@ -2,6 +2,7 @@ package sn.ucad.gestionstock.controller;
 
 
 import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,6 +22,8 @@ import sn.ucad.gestionstock.utils.JwtUtil;
 
 import static sn.ucad.gestionstock.utils.Constatnts.APP_ROOT;
 
+
+@Slf4j
 @RestController
 @Api(APP_ROOT + "/auth")
 @RequestMapping(APP_ROOT + "/auth")
@@ -40,18 +43,21 @@ public class AuthenticationController {
     @Autowired
     private BCryptPasswordEncoder bCryptEncoder;
 
-    @PostMapping( "/authentication ")
-    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody  AuthenticationRequest authenticationRequest)
+    @PostMapping(value = "/authentication")
+    public ResponseEntity<AuthenticationResponse> authenticate( @RequestBody AuthenticationRequest authenticationRequest)
     {
-         authenticationManager.authenticate( new UsernamePasswordAuthenticationToken(
+
+       authenticationManager.authenticate( new UsernamePasswordAuthenticationToken(
                     authenticationRequest.getLogin(), authenticationRequest.getPassword()
               )
          );
 
-         final UserDetails userDetails = applicationUserDetailService.loadUserByUsername(authenticationRequest.getLogin());
+       final UserDetails userDetails = applicationUserDetailService.loadUserByUsername(authenticationRequest.getLogin());
+
+
 
        //  final  String jwt = jwtUtil.generateToken((ExtendUser)userDetails);
-           final  String jwt = jwtUtil.generateToken(userDetails);
+        final  String jwt = jwtUtil.generateToken(userDetails);
 
         return  ResponseEntity.ok(AuthenticationResponse.builder().accessToken(jwt).build());
     }

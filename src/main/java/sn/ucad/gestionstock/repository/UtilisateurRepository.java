@@ -14,6 +14,8 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur,Long> {
 
     Optional<Utilisateur> findByMail(String mail);
 
+
+
     List<Utilisateur> findByPrenom(String prenom);
 
 }

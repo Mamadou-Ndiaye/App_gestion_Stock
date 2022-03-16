@@ -38,7 +38,7 @@ public class UtilisateurDto {
 
 
     //@OneToMany(mappedBy = "utilisateur")
-    @JsonIgnore
+    //@JsonIgnore
     List<RolesDto> rolesDtos;
 
     //@ManyToOne
@@ -82,7 +82,7 @@ public class UtilisateurDto {
                 .motDePasse(utilisateurDto.getMotDePasse())
                 .photo(utilisateurDto.getPhoto())
                 .dateDeNaissance(utilisateurDto.getDateDeNaissance())
-               .adresse(AdresseDto.toEntity(utilisateurDto.getAdresseDto()))
+                .adresse(AdresseDto.toEntity(utilisateurDto.getAdresseDto()))
                 .entreprise(EntrepriseDto.toEntity(utilisateurDto.getEntrepriseDto()))
                 .actived(utilisateurDto.isActived())
                 .build();

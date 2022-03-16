@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import sn.ucad.gestionstock.dto.FournisseurDto;
 import sn.ucad.gestionstock.dto.UtilisateurDto;
 import sn.ucad.gestionstock.exception.EntityNotFoundException;
@@ -52,6 +53,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         }
         utilisateurDto.setMotDePasse(bCryptEncoder.encode(utilisateurDto.getMotDePasse()));
         log.info(" ******** Mot de Passe *******************{}  " + utilisateurDto.getMotDePasse());
+        log.info(" ******** Mot de Passe *******************{}  " + utilisateurDto.getMail());
 
         return  UtilisateurDto.fromEntity(utilisateurRepository.save(UtilisateurDto.toEntity(utilisateurDto)));
     }
@@ -95,7 +97,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     @Override
     public UtilisateurDto findByMail(String mail) {
-        if ( mail == null)
+        if ( !StringUtils.hasLength(mail))
         {
             log.error("Utilisateur is NULL");
             return  null;

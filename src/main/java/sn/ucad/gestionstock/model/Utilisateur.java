@@ -36,7 +36,8 @@ public class Utilisateur extends  AbstractEntity {
 
     private Date dateDeNaissance;
 
-    @OneToMany(mappedBy = "utilisateur")
+
+    @OneToMany(mappedBy = "utilisateur",fetch = FetchType.EAGER)
     List<Roles> roles;
 
     @ManyToOne

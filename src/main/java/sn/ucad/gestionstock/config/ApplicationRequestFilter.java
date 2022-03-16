@@ -38,17 +38,19 @@ public class ApplicationRequestFilter extends OncePerRequestFilter {
 
            // String idEntreprise = null;
             // JWT Token is in the form "Bearer token". Remove Bearer word and get only the Token
-            if (authhHeader != null && authhHeader.startsWith("Bearer ")) {
-                jwtToken = authhHeader.substring(7);
+            if (authhHeader != null &&  authhHeader.startsWith("Bearer "))
+            {
+                        jwtToken = authhHeader.substring(7);
 
-                try {
-                    username = jwtUtil.getUsernameFromToken(jwtToken);
-                   // idEntreprise = jwtUtil.extractIdEntreprise(jwtToken);
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Unable to get JWT Token");
-                }
-            } else {
-                logger.warn("JWT Token does not begin with Bearer String");
+                        try {
+                            username = jwtUtil.getUsernameFromToken(jwtToken);
+                            // idEntreprise = jwtUtil.extractIdEntreprise(jwtToken);
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("Unable to get JWT Token");
+                        }
+            }
+            else {
+                logger.warn("JWT Token does is NULL or He is not begin Bearer String");
             }
 
             //Once we get the token validate it.

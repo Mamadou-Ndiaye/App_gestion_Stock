@@ -27,9 +27,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**/authenticate",
+                .antMatchers("/**/authentication",
                         "/gestiondestock/v1/auth/authentication",
-                        "/gestiondestock/v1/**",
                         "/swagger-resources/**",
                         "/h2-console/**",
                         "/swagger-ui/**",
@@ -62,6 +61,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-        //return NoOpPasswordEncoder.getInstance();
     }
 }
