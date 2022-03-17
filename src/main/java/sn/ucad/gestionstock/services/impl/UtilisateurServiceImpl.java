@@ -52,8 +52,8 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
         }
         utilisateurDto.setMotDePasse(bCryptEncoder.encode(utilisateurDto.getMotDePasse()));
-        log.info(" ******** Mot de Passe *******************{}  " + utilisateurDto.getMotDePasse());
-        log.info(" ******** Mot de Passe *******************{}  " + utilisateurDto.getMail());
+        /*log.info(" ******** Mot de Passe *******************{}  " + utilisateurDto.getMotDePasse());
+        log.info(" ******** Mot de Mail *******************{}  " + utilisateurDto.getMail());*/
 
         return  UtilisateurDto.fromEntity(utilisateurRepository.save(UtilisateurDto.toEntity(utilisateurDto)));
     }

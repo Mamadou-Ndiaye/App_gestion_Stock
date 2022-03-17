@@ -52,9 +52,9 @@ public class  ApplicationUserDetailService implements UserDetailsService {
         System.out.println("*****  Roles ROLES ******"+utilisateur.getRoles());
         utilisateur.getRoles().forEach(roles -> {authorities.add(new SimpleGrantedAuthority(roles.getRoleName()));});
 
-
-       // return new ExtendUser( utilisateur.getMail(), utilisateur.getMotDePasse(), authorities, utilisateur.getEntreprise().getIdEntreprise());
+        // return new ExtendUser( utilisateur.getMail(), utilisateur.getMotDePasse(), authorities, utilisateur.getEntreprise().getIdEntreprise());
       // Soit Je retourne cettte utilisateur directement, si on pas besoin de idEntreprise raison pour laquel j ai cree la classe ExtendUser
         return new User(utilisateur.getMail(),utilisateur.getMotDePasse(), authorities);
     }
+    
 }
