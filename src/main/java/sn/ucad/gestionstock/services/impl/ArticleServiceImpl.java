@@ -5,11 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sn.ucad.gestionstock.dto.ArticleDto;
+import sn.ucad.gestionstock.dto.LigneCommandeClientDto;
+import sn.ucad.gestionstock.dto.LigneCommandeFournisseurDto;
+import sn.ucad.gestionstock.dto.LigneVenteDto;
 import sn.ucad.gestionstock.exception.EntityNotFoundException;
 import sn.ucad.gestionstock.exception.ErrorCodes;
 import sn.ucad.gestionstock.exception.InvalidEntityException;
 import sn.ucad.gestionstock.model.Article;
-import sn.ucad.gestionstock.repository.ArticleRepository;
+import sn.ucad.gestionstock.model.LigneCommandeClient;
+import sn.ucad.gestionstock.model.LigneCommandeFournisseur;
+import sn.ucad.gestionstock.repository.*;
 import sn.ucad.gestionstock.services.ArticleService;
 import sn.ucad.gestionstock.validator.ArticleValidator;
 
@@ -22,12 +27,24 @@ import java.util.stream.Collectors;
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
-    private  ArticleRepository articleRepository;
 
     @Autowired
-    public ArticleServiceImpl(ArticleRepository articleRepository) {
+    private VenteRepository venteRepository;
+
+    private  ArticleRepository articleRepository;
+    private LigneVenteRepository ligneVenteRepository;
+    private LigneCommandeClientRepository ligneCommandeClientRepository;
+    private LigneCommandeFournisseurRepository ligneCommandeFournisseurRepository;
+
+    @Autowired
+    public ArticleServiceImpl(ArticleRepository articleRepository, LigneVenteRepository ligneVenteRepository, LigneCommandeClientRepository ligneCommandeClientRepository, LigneCommandeFournisseurRepository ligneCommandeFournisseurRepository) {
         this.articleRepository = articleRepository;
+        this.ligneVenteRepository = ligneVenteRepository;
+        this.ligneCommandeClientRepository = ligneCommandeClientRepository;
+        this.ligneCommandeFournisseurRepository = ligneCommandeFournisseurRepository;
     }
+
+
 
     @Override
     public ArticleDto save(ArticleDto articleDto) {
@@ -87,5 +104,31 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         articleRepository.deleteById(id);
+    }
+
+    @Override
+    public List<LigneVenteDto> findHistoriqueVente(Long idArticle) {
+        return ligneVenteRepository.findAllByArticleId(idArticle).stream().map(LigneVenteDto::fromEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<LigneCommandeClientDto> findHistoriqueCommandeClient(Long idArticle) {
+        return ligneCommandeClientRepository.findAllByArticleId(idArticle).stream()
+                .map(LigneCommandeClientDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<LigneCommandeFournisseurDto> findHistoriqueCommandeFournisseur(Long idArticle) {
+        return ligneCommandeFournisseurRepository.findAllByArticleId(idArticle).stream()
+                .map(LigneCommandeFournisseurDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ArticleDto> findAllArticleByIdCategory(Long idCategory) {
+        return articleRepository.findAllByCategoryId(idCategory).stream()
+                .map(ArticleDto::fromEntity)
+                .collect(Collectors.toList());
     }
 }

@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RestController;
 import sn.ucad.gestionstock.controller.api.ArticleApi;
 import sn.ucad.gestionstock.dto.ArticleDto;
+import sn.ucad.gestionstock.dto.LigneCommandeClientDto;
+import sn.ucad.gestionstock.dto.LigneCommandeFournisseurDto;
+import sn.ucad.gestionstock.dto.LigneVenteDto;
 import sn.ucad.gestionstock.services.ArticleService;
 
 import java.util.List;
@@ -45,5 +48,25 @@ public class ArticleController implements ArticleApi {
     @Override
     public void deleteById(Long id) {
          articleService.deleteById(id);
+    }
+
+    @Override
+    public List<LigneVenteDto> findHistoriqueVente(Long idArticle) {
+        return articleService.findHistoriqueVente(idArticle);
+    }
+
+    @Override
+    public List<LigneCommandeClientDto> findHistoriqueCommandeClient(Long idArticle) {
+        return articleService.findHistoriqueCommandeClient(idArticle);
+    }
+
+    @Override
+    public List<LigneCommandeFournisseurDto> findHistoriqueCommandeFournisseur(Long idArticle) {
+        return articleService.findHistoriqueCommandeFournisseur(idArticle);
+    }
+
+    @Override
+    public List<ArticleDto> findAllArticleByIdCategory(Long idCategory) {
+        return  articleService.findAllArticleByIdCategory(idCategory);
     }
 }

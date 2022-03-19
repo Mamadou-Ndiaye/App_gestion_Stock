@@ -7,6 +7,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import sn.ucad.gestionstock.model.Article;
 
 
+import java.util.List;
 import java.util.Optional;
 
 @RepositoryRestResource
@@ -14,4 +15,6 @@ public interface ArticleRepository  extends JpaRepository<Article,Long> {
 
 
    Optional<Article> findArticleByCodeArticle(String codeArticle);
+
+   List<Article>  findAllByCategoryId(Long idCategory);
 }

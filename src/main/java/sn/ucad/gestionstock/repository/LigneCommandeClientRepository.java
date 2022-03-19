@@ -12,4 +12,6 @@ import java.util.List;
 public interface LigneCommandeClientRepository extends JpaRepository<LigneCommandeClient,Long> {
 
     List<LigneCommandeClient> findAllByCommandeClientId(Long idCommande);
+
+    List<LigneCommandeClient> findAllByArticleId(Long idArticle);
 }

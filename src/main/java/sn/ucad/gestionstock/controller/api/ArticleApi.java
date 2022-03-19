@@ -8,6 +8,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import sn.ucad.gestionstock.dto.ArticleDto;
+import sn.ucad.gestionstock.dto.LigneCommandeClientDto;
+import sn.ucad.gestionstock.dto.LigneCommandeFournisseurDto;
+import sn.ucad.gestionstock.dto.LigneVenteDto;
 
 import java.util.List;
 import static   sn.ucad.gestionstock.utils.Constatnts.APP_ROOT;
@@ -43,4 +46,17 @@ public interface ArticleApi {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "L'Article a été trouvé dans la base de données"),@ApiResponse(code = 404, message = "Aucun article n'a été trouvé dans la BDD avec l ID fournie")})
     @DeleteMapping(value = APP_ROOT + "/articles/delete/{idArticle}")
     void  deleteById(@PathVariable("idArticle") Long id);
+
+    @GetMapping(value = APP_ROOT + "/articles/historique/vente/{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<LigneVenteDto>  findHistoriqueVente(@PathVariable("idArticle") Long idArticle);
+
+    @GetMapping(value = APP_ROOT + "/articles/historique/commandeclient/{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<LigneCommandeClientDto>  findHistoriqueCommandeClient(@PathVariable("idArticle") Long idArticle);
+
+    @GetMapping(value = APP_ROOT + "/articles/historique/commandefournisseur{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<LigneCommandeFournisseurDto>  findHistoriqueCommandeFournisseur(@PathVariable("idArticle") Long idArticle);
+
+    @GetMapping(value = APP_ROOT + "/articles/filtrer/category/{idCategory}", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<ArticleDto>  findAllArticleByIdCategory(@PathVariable("idCategory") Long idCategory);
+
 }
