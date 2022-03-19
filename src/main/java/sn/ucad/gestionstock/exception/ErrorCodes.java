@@ -39,8 +39,11 @@ public enum ErrorCodes {
     UTILISATEUR_NOT_VALID(12001),
 
     VENTE_NOT_FOUND(13000),
-    VENTE_NOT_VALID(13001);
-
+    VENTE_NOT_VALID(13001),
+   // liste des Exceptions technique
+    UPDATE_PHOTO_EXCEPTION(140000) ,
+    UNKNOW_CONTEXT(15000)
+    ;
 
     private int code;
 
