@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import sn.ucad.gestionstock.model.Client;
 import sn.ucad.gestionstock.model.CommandeClient;
+import sn.ucad.gestionstock.model.EtatCommande;
 import sn.ucad.gestionstock.model.LigneCommandeClient;
 
 import javax.persistence.ManyToOne;
@@ -30,6 +31,8 @@ public class CommandeClientDto {
     //@JoinColumn(name = "idClient")
     private ClientDto clientDto;
 
+    private EtatCommande etatCommande;
+
     private Long idEntreprise;
 
 
@@ -51,6 +54,7 @@ public class CommandeClientDto {
                   .code(commandeClient.getCode())
                   .dateCommande(commandeClient.getDateCommande())
                   .clientDto(ClientDto.fromEntity(commandeClient.getClient()))
+                  .etatCommande(commandeClient.getEtatCommande())
                   .idEntreprise(commandeClient.getIdEntreprise())
                   .build();
     }
@@ -67,11 +71,17 @@ public class CommandeClientDto {
                 .idCommandeClient(commandeClientDto.getIdCommandeClient())
                 .code(commandeClientDto.getCode())
                 .dateCommande(commandeClientDto.getDateCommande())
+                .etatCommande(commandeClientDto.getEtatCommande())
                 .client(ClientDto.toEntity(commandeClientDto.getClientDto()))
                 .client(ClientDto.toEntity(commandeClientDto.getClientDto()))
                 .idEntreprise(commandeClientDto.getIdEntreprise())
                 .build();
 
+    }
+
+    public  boolean isCommandeClientLivree()
+    {
+        return  EtatCommande.LIVREE.equals(this.etatCommande);
     }
 
 }

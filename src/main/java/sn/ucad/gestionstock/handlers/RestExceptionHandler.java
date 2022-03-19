@@ -8,6 +8,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import sn.ucad.gestionstock.exception.EntityNotFoundException;
 import sn.ucad.gestionstock.exception.InvalidEntityException;
+import sn.ucad.gestionstock.exception.InvalidOperationException;
 
 
 @RestControllerAdvice
@@ -26,6 +27,18 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return  new ResponseEntity<>(errorDto, notFound);
     }
 
+    @ExceptionHandler(InvalidOperationException.class)
+    public ResponseEntity<ErrorDto> handlerException(InvalidOperationException exception, WebRequest webRequest)
+    {
+        final HttpStatus notFound = HttpStatus.BAD_REQUEST;
+        final ErrorDto errorDto = ErrorDto.builder()
+                .errorCodes(exception.getErrorCodes())
+                .httpCode(notFound.value())
+                .message(exception.getMessage())
+                .build();
+
+        return  new ResponseEntity<>(errorDto, notFound);
+    }
     @ExceptionHandler(InvalidEntityException.class)
     public ResponseEntity<ErrorDto> handlerException(InvalidEntityException exception, WebRequest webRequest)
     {

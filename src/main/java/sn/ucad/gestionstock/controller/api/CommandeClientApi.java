@@ -6,11 +6,10 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import sn.ucad.gestionstock.dto.ArticleDto;
-import sn.ucad.gestionstock.dto.CategoryDto;
-import sn.ucad.gestionstock.dto.ClientDto;
-import sn.ucad.gestionstock.dto.CommandeClientDto;
+import sn.ucad.gestionstock.dto.*;
+import sn.ucad.gestionstock.model.EtatCommande;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static sn.ucad.gestionstock.utils.Constatnts.APP_ROOT;
@@ -23,6 +22,27 @@ public interface CommandeClientApi {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "L Objet commande client crée / modifié"), @ApiResponse(code = 404, message = "L Objet commande client n 'est pas valide")})
     @PostMapping(value =APP_ROOT + "/commandeclients/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces =  MediaType.APPLICATION_JSON_VALUE)
     CommandeClientDto save(@RequestBody CommandeClientDto commandeClientDto);
+
+
+    @PatchMapping(value =APP_ROOT + "/commandeclients/update/etat/{idCommande}/{etatCommande}", consumes = MediaType.APPLICATION_JSON_VALUE, produces =  MediaType.APPLICATION_JSON_VALUE)
+    CommandeClientDto updateEtatCommande(@PathVariable("idCommande") Long id, @PathVariable("etatCommande") EtatCommande etatCommande);
+
+
+    @PatchMapping(value =APP_ROOT + "/commandeclients/update/quantite/{idCommande}/{idLigneCommande}/{quantite}", consumes = MediaType.APPLICATION_JSON_VALUE, produces =  MediaType.APPLICATION_JSON_VALUE)
+    CommandeClientDto updateQuantiteCommande(@PathVariable("idCommande") Long idCommande,@PathVariable("idLigneCommande") Long idLigneCommande, @PathVariable("quantite") BigDecimal quantite);
+
+    @PatchMapping(value =APP_ROOT + "/commandeclients/update/client/{idCommande}/{idClient}", consumes = MediaType.APPLICATION_JSON_VALUE, produces =  MediaType.APPLICATION_JSON_VALUE)
+    CommandeClientDto updateClient( @PathVariable("idCommande") Long idCommande, @PathVariable("idClient") Long idClient);
+
+    @PatchMapping(value =APP_ROOT + "/commandeclients/update/article/{idCommande}/{idLigneCommande}/{newIdArticle}", consumes = MediaType.APPLICATION_JSON_VALUE, produces =  MediaType.APPLICATION_JSON_VALUE)
+    CommandeClientDto updateArticle(@PathVariable("idCommande") Long idCommande, @PathVariable("idLigneCommande")  Long idLigneCommande, @PathVariable("newIdArticle") Long newIdArticle) ;
+
+    @DeleteMapping(value = APP_ROOT +"/commandeclients/delete/article/{idCommande}/{idLigneCommande}")
+    CommandeClientDto deleteArticle(@PathVariable("idCommande") Long idCommande,  @PathVariable("idLigneCommande") Long idLigneCommande) ;
+
+
+    @GetMapping(value =  APP_ROOT+ "/commandeclients/ligneCommande/{idCommande}" , produces = MediaType.APPLICATION_JSON_VALUE)
+    List<LigneCommandeClientDto>  findAllLignesCommandeClientByCommandeClietId(@PathVariable("idCommande") Long idCommande);
 
     @ApiOperation(value = "rechercher  une commande client !", notes = "Cette methode permet de rechercher une commande client dans la BDD avec son ID",response = CommandeClientDto.class)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "La commande client a été trouvé dans la base de données"),@ApiResponse(code = 404, message = "Aucun Commande client n'a été trouvé dans la BDD avec l ID fournie")})
