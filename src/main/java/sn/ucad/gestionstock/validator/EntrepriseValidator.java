@@ -15,20 +15,24 @@ public class EntrepriseValidator {
 
         if (entrepriseDto == null)
         {
-            errors.add("Veuillez renseigner le nom de l'utilisateur");
-            errors.add("Veuillez renseigner le mot de passe de l'utilisateur");
-            errors.add("Veuillez renseigner l'adresse de l'utilisateur");
+            errors.add("Veuillez renseigner le nom de l entreprise");
+            errors.add("Veuillez renseigner le mot de passe de l entreprise");
+            errors.add("Veuillez renseigner l'adresse de l entreprise");
             return errors;
         }
         if ( !StringUtils.hasLength(entrepriseDto.getNom()))
         {
-            errors.add("Veuillez renseigner le nom de l'utilisateur");
+            errors.add("Veuillez renseigner le nom de l entreprise");
         }
         if (!StringUtils.hasLength(entrepriseDto.getMail()))
         {
-            errors.add("Veuillez renseigner l'email de l'utilisateur");
+            errors.add("Veuillez renseigner l'email de l entreprise");
         }
-        if (entrepriseDto.getAdresseDto()== null)
+        if (!StringUtils.hasLength(entrepriseDto.getNumTel()))
+        {
+            errors.add("Veuillez renseigner le numero de telephone de l entreprise");
+        }
+       /* if (entrepriseDto.getAdresseDto()== null)
         {
             errors.add("Veuillez renseigner l'adresse de l'utilisateur");
         }
@@ -52,7 +56,9 @@ public class EntrepriseValidator {
             }
 
         }
+*/
 
+        errors.addAll(AdresseValidator.validate(entrepriseDto.getAdresseDto()));
         return  errors;
 
     }

@@ -41,7 +41,8 @@ public class UtilisateurValidator {
         {
             errors.add("Veuillez renseigner la date de naissance de l'utilisateur");
         }*/
-        if (utilisateurDto.getAdresseDto()== null)
+        errors.addAll(AdresseValidator.validate(utilisateurDto.getAdresseDto()));
+        /*if (utilisateurDto.getAdresseDto()== null)
         {
             errors.add("Veuillez renseigner l'adresse de l'utilisateur");
         }
@@ -65,6 +66,7 @@ public class UtilisateurValidator {
             }
 
         }
+*/
 
         return  errors;
 

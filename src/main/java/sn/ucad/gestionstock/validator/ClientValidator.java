@@ -36,6 +36,8 @@ public class ClientValidator {
         {
             errors.add("Veuillez renseigner le numero de téléphone du l'utilisateur");
         }
+        // Si on vet valider l Adresse du client on le decommente juste
+          //errors.addAll(AdresseValidator.validate(clientDto.getAdresseDto()));
 
         return  errors;
     }
