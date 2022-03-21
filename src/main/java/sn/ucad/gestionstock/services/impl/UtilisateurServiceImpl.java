@@ -6,11 +6,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import sn.ucad.gestionstock.dto.ChangerMotDePasseUtilisateurDto;
 import sn.ucad.gestionstock.dto.FournisseurDto;
 import sn.ucad.gestionstock.dto.UtilisateurDto;
 import sn.ucad.gestionstock.exception.EntityNotFoundException;
 import sn.ucad.gestionstock.exception.ErrorCodes;
 import sn.ucad.gestionstock.exception.InvalidEntityException;
+import sn.ucad.gestionstock.exception.InvalidOperationException;
 import sn.ucad.gestionstock.model.Fournisseur;
 import sn.ucad.gestionstock.model.Utilisateur;
 import sn.ucad.gestionstock.repository.UtilisateurRepository;
@@ -128,5 +130,50 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         }
 
         utilisateurRepository.deleteById(id);
+    }
+
+    @Override
+    public UtilisateurDto changerMotDePasse(ChangerMotDePasseUtilisateurDto dto) {
+        validate(dto);
+     Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findById(dto.getId());
+     if (!utilisateurOptional.isPresent())
+     {
+         log.warn("Utilisateur not found");
+         throw  new EntityNotFoundException("Aucun utilisateur n a ete trouve avec cette ID"+dto.getId() ,ErrorCodes.UTILISATEUR_NOT_FOUND);
+     }
+     Utilisateur utilisateur = utilisateurOptional.get();
+     utilisateur.setMotDePasse(dto.getMotDePasse());
+        return  UtilisateurDto.fromEntity(utilisateurRepository.save(utilisateur));
+    }
+
+    private  void  validate(ChangerMotDePasseUtilisateurDto dto)
+    {
+        if (dto == null)
+        {
+            log.warn("Impossible de modifier le mot de passe avec un objet null");
+            throw  new InvalidOperationException("Aucune information n aété fournie pour pouvoir changer le mdp", ErrorCodes.UTILISATEUR_CHANGE_PASSWORD_OBJECT_NOT_VALID);
+        }
+
+        if (dto.getId() == null)
+        {
+            log.warn("Impossible de modifier le mot de passe avec un ID null");
+            throw  new InvalidOperationException("ID utilisateur NULL:: impossible de modifier le mot de passe d un user avec ID null", ErrorCodes.UTILISATEUR_CHANGE_PASSWORD_OBJECT_NOT_VALID);
+
+        }
+
+        if (!StringUtils.hasLength(dto.getMotDePasse()) || !StringUtils.hasLength(dto.getConfirmMotDePasse()))
+        {
+            log.warn("Impossible de modifier le mot de passe avec mot de passe null");
+            throw  new InvalidOperationException("ID utilisateur NULL:: impossible de modifier le mot de passe d un user avec ID null", ErrorCodes.UTILISATEUR_CHANGE_PASSWORD_OBJECT_NOT_VALID);
+
+        }
+
+        if (!dto.getMotDePasse().equals(dto.getConfirmMotDePasse()))
+        {
+            log.warn("Impossible de modifier le mot de passe avec mot de passe avec eux 2 mot de passe differentes");
+            throw  new InvalidOperationException("ID utilisateur NULL:: impossible de modifier le mot de passe d un user avec 2 mots de passe non conforme ", ErrorCodes.UTILISATEUR_CHANGE_PASSWORD_OBJECT_NOT_VALID);
+
+        }
+
     }
 }

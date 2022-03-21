@@ -1,5 +1,6 @@
 package sn.ucad.gestionstock.services;
 
+import sn.ucad.gestionstock.dto.ChangerMotDePasseUtilisateurDto;
 import sn.ucad.gestionstock.dto.UtilisateurDto;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface UtilisateurService {
     List<UtilisateurDto>  findByPrenom(String prenom);
 
     void   deleteById(Long id);
+
+    UtilisateurDto changerMotDePasse(ChangerMotDePasseUtilisateurDto dto);
 }
