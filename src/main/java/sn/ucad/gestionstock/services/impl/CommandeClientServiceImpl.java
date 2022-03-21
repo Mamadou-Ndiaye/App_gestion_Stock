@@ -4,10 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import sn.ucad.gestionstock.dto.ArticleDto;
-import sn.ucad.gestionstock.dto.ClientDto;
-import sn.ucad.gestionstock.dto.CommandeClientDto;
-import sn.ucad.gestionstock.dto.LigneCommandeClientDto;
+import sn.ucad.gestionstock.dto.*;
 import sn.ucad.gestionstock.exception.EntityNotFoundException;
 import sn.ucad.gestionstock.exception.ErrorCodes;
 import sn.ucad.gestionstock.exception.InvalidEntityException;
@@ -18,12 +15,14 @@ import sn.ucad.gestionstock.repository.ClientRepository;
 import sn.ucad.gestionstock.repository.CommandeClientRepository;
 import sn.ucad.gestionstock.repository.LigneCommandeClientRepository;
 import sn.ucad.gestionstock.services.CommandeClientService;
+import sn.ucad.gestionstock.services.MvtStkService;
 import sn.ucad.gestionstock.validator.ArticleValidator;
 import sn.ucad.gestionstock.validator.CommandeClientValidator;
 
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,13 +36,15 @@ public class CommandeClientServiceImpl implements CommandeClientService {
     private ArticleRepository articleRepository;
     private ClientRepository clientRepository;
     private LigneCommandeClientRepository ligneCommandeClientRepository;
+    private MvtStkService mvtStkService;
 
     @Autowired
-    public CommandeClientServiceImpl(CommandeClientRepository commandeClientRepository, ArticleRepository articleRepository, ClientRepository clientRepository, LigneCommandeClientRepository ligneCommandeClientRepository) {
+    public CommandeClientServiceImpl(CommandeClientRepository commandeClientRepository, ArticleRepository articleRepository, ClientRepository clientRepository, LigneCommandeClientRepository ligneCommandeClientRepository, MvtStkService mvtStkService) {
         this.commandeClientRepository = commandeClientRepository;
         this.articleRepository = articleRepository;
         this.clientRepository = clientRepository;
         this.ligneCommandeClientRepository = ligneCommandeClientRepository;
+        this.mvtStkService = mvtStkService;
     }
 
     @Override
@@ -160,7 +161,12 @@ public class CommandeClientServiceImpl implements CommandeClientService {
         CommandeClientDto commandeClientDto =  checkEtatCommande(id);
         commandeClientDto.setEtatCommande(etatCommande);
 
-        return CommandeClientDto.fromEntity(commandeClientRepository.save(CommandeClientDto.toEntity(commandeClientDto)));
+        CommandeClient savedCmdClt = commandeClientRepository.save(CommandeClientDto.toEntity(commandeClientDto));
+       if (commandeClientDto.isCommandeClientLivree()) {
+           updateMvtStk(id);
+       }
+
+        return CommandeClientDto.fromEntity(savedCmdClt);
 
     }
 
@@ -322,6 +328,24 @@ public class CommandeClientServiceImpl implements CommandeClientService {
 
         }
         return ligneCommandeClientOptional;
+
+    }
+
+    private  void  updateMvtStk(Long idCommande)
+    {
+        List<LigneCommandeClient> ligneCommandeClients = ligneCommandeClientRepository.findAllByCommandeClientId(idCommande);
+
+        ligneCommandeClients.forEach(ligneCommandeClient -> {
+            MvtStkDto mvtStkDto = MvtStkDto.builder()
+                    .articleDto(ArticleDto.fromEntity(ligneCommandeClient.getArticle()))
+                    .dateMvt(new Date())
+                    .typeMvt(TypeMvtStk.SORTIE)
+                    .sourceMvt(SourceMvtStk.COMMANDE_CLIENT)
+                    .quantite(ligneCommandeClient.getQuantite())
+                    .idEntreprise(ligneCommandeClient.getIdEntreprise())
+                    .build();
+            mvtStkService.sortieStock(mvtStkDto);
+        });
 
     }
 }

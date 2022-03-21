@@ -1,6 +1,7 @@
 package sn.ucad.gestionstock.controller;
 
 
+import com.flickr4java.flickr.FlickrException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,7 +22,7 @@ public class PhotoController implements PhotoApi {
     }
 
     @Override
-    public Object savePhoto(String context, Long id, MultipartFile photo, String title) throws IOException {
-        return  strategyPhotoContext.savePhoto(context,id,photo.getInputStream(),title;
+    public Object savePhoto(String context, Long id, MultipartFile photo, String title) throws IOException, FlickrException {
+        return  strategyPhotoContext.savePhoto(context,id,photo.getInputStream(),title);
     }
 }

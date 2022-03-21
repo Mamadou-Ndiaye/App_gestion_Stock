@@ -17,6 +17,6 @@ import static sn.ucad.gestionstock.utils.Constatnts.APP_ROOT;
 public interface PhotoApi {
 
     @PostMapping(APP_ROOT + "/photos/{id}/{titre}/{context}")
-    Object  savePhoto(@PathVariable("context") String context, @PathVariable("id") Long id, @RequestPart("file") MultipartFile photo, @PathVariable("title") String title) throws IOException;
+    Object  savePhoto(@PathVariable("context") String context, @PathVariable("id") Long id, @RequestPart("file") MultipartFile photo, @PathVariable("title") String title) throws IOException, FlickrException;
 
 }

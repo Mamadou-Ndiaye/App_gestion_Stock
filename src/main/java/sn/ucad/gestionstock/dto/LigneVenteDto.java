@@ -28,6 +28,7 @@ public class LigneVenteDto {
 
     private Long idEntreprise;
 
+    private BigDecimal quantite;
 
     // @JoinColumn(name = "vente")
    // @ManyToOne
@@ -46,7 +47,8 @@ public class LigneVenteDto {
        return  LigneVenteDto.builder()
                 .idLigneVente(ligneVente.getIdLigneVente())
                .idEntreprise(ligneVente.getIdEntreprise())
-                //.articleDto(ligneVente.getArticle())
+               .quantite(ligneVente.getQuantite())
+                .articleDto(ArticleDto.fromEntity(ligneVente.getArticle()))
                 .build();
 
     }
@@ -62,6 +64,8 @@ public class LigneVenteDto {
         return  LigneVente.builder()
                  .idLigneVente(ligneVenteDto.getIdLigneVente())
                 .idEntreprise(ligneVenteDto.getIdEntreprise())
+                .quantite(ligneVenteDto.getQuantite())
+                .article(ArticleDto.toEntity(ligneVenteDto.getArticleDto()))
                 .build();
     }
 }

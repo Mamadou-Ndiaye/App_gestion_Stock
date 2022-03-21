@@ -4,6 +4,7 @@ package sn.ucad.gestionstock.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 
 @Builder
@@ -27,4 +28,5 @@ public class LigneVente extends  AbstractEntity {
 
     private Long idEntreprise;
 
+    public BigDecimal quantite;
 }

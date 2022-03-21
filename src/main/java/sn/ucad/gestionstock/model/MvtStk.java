@@ -27,7 +27,9 @@ public class MvtStk extends  AbstractEntity {
 
     private BigDecimal quantite;
 
-    private int typeMvt;
+    private TypeMvtStk typeMvt;
+
+    private  SourceMvtStk sourceMvt;
 
     @ManyToOne
    // @JoinColumn(name = "idArticle")

@@ -26,6 +26,8 @@ public class VenteDto {
 
     private Long idEntreprise;
 
+    private BigDecimal quantite;
+
     //@OneToMany(mappedBy = "vente")
     @JsonIgnore
     private List<LigneVenteDto> ligneVenteDtos;

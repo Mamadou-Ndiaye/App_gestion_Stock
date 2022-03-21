@@ -2,9 +2,7 @@ package sn.ucad.gestionstock.dto;
 
 import lombok.Builder;
 import lombok.Data;
-import sn.ucad.gestionstock.model.Article;
-import sn.ucad.gestionstock.model.Category;
-import sn.ucad.gestionstock.model.MvtStk;
+import sn.ucad.gestionstock.model.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -22,14 +20,16 @@ public class MvtStkDto {
 
     private BigDecimal quantite;
 
-    private int typeMvt;
+    private TypeMvtStk typeMvt;
 
     private Long idEntreprise;
-
 
     // @ManyToOne
     // @JoinColumn(name = "idArticle")
     private ArticleDto articleDto;
+
+    private SourceMvtStk sourceMvt;
+
 
     public static MvtStkDto fromEntity(MvtStk mvtStk)
     {
@@ -44,26 +44,13 @@ public class MvtStkDto {
                 .quantite(mvtStk.getQuantite())
                 .typeMvt(mvtStk.getTypeMvt())
                 .idEntreprise(mvtStk.getIdEntreprise())
+                .sourceMvt(mvtStk.getSourceMvt())
                // .articleDto(mvtStk.getArticle())
                 .build();
     }
 
-    public static MvtStk fromEntity(MvtStkDto mvtStkDto)
-    {
-        if( mvtStkDto == null)
-        {
-            return  null;
-        }
 
-        return  MvtStk.builder()
-                .idMvtStk(mvtStkDto.getIdMvtStk())
-                .dateMvt(mvtStkDto.getDateMvt())
-                .quantite(mvtStkDto.getQuantite())
-                .typeMvt(mvtStkDto.getTypeMvt())
-                .build();
-    }
-
-    public static MvtStkDto toEntity(MvtStk mvtStk)
+    public static MvtStk toEntity(MvtStkDto mvtStk)
     {
         if ( mvtStk == null)
         {
@@ -71,11 +58,12 @@ public class MvtStkDto {
             // TODO
         }
 
-        return  MvtStkDto.builder()
+        return  MvtStk.builder()
                 .idMvtStk(mvtStk.getIdMvtStk())
                 .dateMvt(mvtStk.getDateMvt())
                 .quantite(mvtStk.getQuantite())
                 .typeMvt(mvtStk.getTypeMvt())
+                .sourceMvt(mvtStk.getSourceMvt())
                 .build();
     }
 }
