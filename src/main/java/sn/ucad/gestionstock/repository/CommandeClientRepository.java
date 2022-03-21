@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import sn.ucad.gestionstock.model.CommandeClient;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -12,4 +13,7 @@ public interface CommandeClientRepository extends JpaRepository<CommandeClient,L
 
 
     Optional<CommandeClient>  findByCode(String code);
+
+
+    List<CommandeClient> findAllByClientId(Long id);
 }

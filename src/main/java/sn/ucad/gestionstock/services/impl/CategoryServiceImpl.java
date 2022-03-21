@@ -7,7 +7,10 @@ import sn.ucad.gestionstock.dto.CategoryDto;
 import sn.ucad.gestionstock.exception.EntityNotFoundException;
 import sn.ucad.gestionstock.exception.ErrorCodes;
 import sn.ucad.gestionstock.exception.InvalidEntityException;
+import sn.ucad.gestionstock.exception.InvalidOperationException;
+import sn.ucad.gestionstock.model.Article;
 import sn.ucad.gestionstock.model.Category;
+import sn.ucad.gestionstock.repository.ArticleRepository;
 import sn.ucad.gestionstock.repository.CategoryRepository;
 import sn.ucad.gestionstock.services.CategoryService;
 import sn.ucad.gestionstock.validator.CategoryValidator;
@@ -25,8 +28,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     CategoryRepository categoryRepository;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+    ArticleRepository articleRepository;
+
+    public CategoryServiceImpl(CategoryRepository categoryRepository, ArticleRepository articleRepository) {
         this.categoryRepository = categoryRepository;
+        this.articleRepository =articleRepository;
     }
 
     @Override
@@ -113,6 +119,12 @@ public class CategoryServiceImpl implements CategoryService {
         {
             log.error("Category is NULL");
 
+        }
+        List<Article>  articles = articleRepository.findAllByCategoryId(id);
+        if (!articles.isEmpty())
+        {
+            log.error("La category a des articles");
+            throw  new InvalidOperationException("Cette  categorie contient des articles impossible d effectuer la suppression", ErrorCodes.CATEGORY_ALREADY_IN_USE);
         }
 
         categoryRepository.deleteById(id);

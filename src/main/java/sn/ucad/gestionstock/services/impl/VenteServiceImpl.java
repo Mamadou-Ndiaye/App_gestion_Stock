@@ -8,6 +8,7 @@ import sn.ucad.gestionstock.dto.*;
 import sn.ucad.gestionstock.exception.EntityNotFoundException;
 import sn.ucad.gestionstock.exception.ErrorCodes;
 import sn.ucad.gestionstock.exception.InvalidEntityException;
+import sn.ucad.gestionstock.exception.InvalidOperationException;
 import sn.ucad.gestionstock.model.*;
 import sn.ucad.gestionstock.repository.ArticleRepository;
 import sn.ucad.gestionstock.repository.LigneVenteRepository;
@@ -115,6 +116,12 @@ public class VenteServiceImpl implements VenteService {
         if (id == null) {
             log.error("Vente is NULL");
         }
+        List<LigneVente> ligneVentes = ligneVenteRepository.findAllByVenteId(id);
+       if(!ligneVentes.isEmpty())
+       {
+           log.error("Impossible de supprimer une vente contenant des lignes de ventes");
+           throw  new InvalidOperationException("Impossible de supprimer une vente, qui a deja des lignes de ventes", ErrorCodes.VENTE_ALREADY_IN_USE);
+       }
         venteRepository.deleteById(id);
     }
 

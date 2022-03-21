@@ -1,6 +1,7 @@
 package sn.ucad.gestionstock.services.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sn.ucad.gestionstock.dto.ClientDto;
@@ -9,8 +10,12 @@ import sn.ucad.gestionstock.dto.FournisseurDto;
 import sn.ucad.gestionstock.exception.EntityNotFoundException;
 import sn.ucad.gestionstock.exception.ErrorCodes;
 import sn.ucad.gestionstock.exception.InvalidEntityException;
+import sn.ucad.gestionstock.exception.InvalidOperationException;
+import sn.ucad.gestionstock.model.CommandeClient;
+import sn.ucad.gestionstock.model.CommandeFournisseur;
 import sn.ucad.gestionstock.model.Entreprise;
 import sn.ucad.gestionstock.model.Fournisseur;
+import sn.ucad.gestionstock.repository.CommandeFournisseurRepository;
 import sn.ucad.gestionstock.repository.FournisseurRepository;
 import sn.ucad.gestionstock.services.FournisseurService;
 import sn.ucad.gestionstock.validator.FournisseurValidator;
@@ -26,6 +31,9 @@ import java.util.stream.Collectors;
 public class FounisseurSerrviceImpl implements FournisseurService {
 
     FournisseurRepository fournisseurRepository;
+
+    @Autowired
+    CommandeFournisseurRepository commandeFournisseurRepository;
 
     public FounisseurSerrviceImpl(FournisseurRepository fournisseurRepository) {
         this.fournisseurRepository = fournisseurRepository;
@@ -117,6 +125,14 @@ public class FounisseurSerrviceImpl implements FournisseurService {
             log.error("Fournisseur is NULL");
             return;
         }
+
+        List<CommandeFournisseur> commandeFournisseurs = commandeFournisseurRepository.findAllByFournisseurId(id);
+        if (!commandeFournisseurs.isEmpty())
+        {
+            log.error("Impossible de supprimer ce fournisseur car, il est deja utilise");
+            throw  new InvalidOperationException("Impossible de supprimer ce fournisseur car, il est deja utilise dans les commandes fournisseurs", ErrorCodes.FOURNISSEUR_ALREADY_IN_USE);
+        }
+
 
         fournisseurRepository.deleteById(id);
     }

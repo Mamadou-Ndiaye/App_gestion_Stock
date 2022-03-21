@@ -11,9 +11,11 @@ import sn.ucad.gestionstock.dto.LigneVenteDto;
 import sn.ucad.gestionstock.exception.EntityNotFoundException;
 import sn.ucad.gestionstock.exception.ErrorCodes;
 import sn.ucad.gestionstock.exception.InvalidEntityException;
+import sn.ucad.gestionstock.exception.InvalidOperationException;
 import sn.ucad.gestionstock.model.Article;
 import sn.ucad.gestionstock.model.LigneCommandeClient;
 import sn.ucad.gestionstock.model.LigneCommandeFournisseur;
+import sn.ucad.gestionstock.model.LigneVente;
 import sn.ucad.gestionstock.repository.*;
 import sn.ucad.gestionstock.services.ArticleService;
 import sn.ucad.gestionstock.validator.ArticleValidator;
@@ -102,6 +104,31 @@ public class ArticleServiceImpl implements ArticleService {
             log.error("Article is NULL");
             return;
         }
+
+        List<LigneCommandeClient> ligneCommandeClients = ligneCommandeClientRepository.findAllByArticleId(id);
+
+        if (!ligneCommandeClients.isEmpty())
+        {
+            log.error("Article deja utilise");
+            throw  new InvalidOperationException("L'Article deja utilise dans une commande client", ErrorCodes.ARTICLE_ALREADY_IN_USE);
+        }
+
+        List<LigneCommandeFournisseur> ligneCommandeFournisseurs = ligneCommandeFournisseurRepository.findAllByArticleId(id);
+
+        if (!ligneCommandeFournisseurs.isEmpty())
+        {
+            log.error("Article deja utilise");
+            throw  new InvalidOperationException("L'Article deja utilise dans une commande fournisseur", ErrorCodes.ARTICLE_ALREADY_IN_USE);
+        }
+
+        List<LigneVente> ligneVentes = ligneVenteRepository.findAllByArticleId(id);
+
+        if (!ligneVentes.isEmpty())
+        {
+            log.error("Article deja utilise");
+            throw  new InvalidOperationException("L'Article deja utilise dans une vente", ErrorCodes.ARTICLE_ALREADY_IN_USE);
+        }
+
 
         articleRepository.deleteById(id);
     }

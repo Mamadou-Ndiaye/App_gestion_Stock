@@ -9,8 +9,11 @@ import sn.ucad.gestionstock.exception.EntityNotFoundException;
 import sn.ucad.gestionstock.exception.ErrorCodes;
 import sn.ucad.gestionstock.exception.InvalidEntityException;
 
+import sn.ucad.gestionstock.exception.InvalidOperationException;
 import sn.ucad.gestionstock.model.Client;
+import sn.ucad.gestionstock.model.CommandeClient;
 import sn.ucad.gestionstock.repository.ClientRepository;
+import sn.ucad.gestionstock.repository.CommandeClientRepository;
 import sn.ucad.gestionstock.services.ClientService;
 import sn.ucad.gestionstock.validator.ClientValidator;
 
@@ -25,6 +28,8 @@ import java.util.stream.Collectors;
 public class ClientServiceImpl  implements ClientService {
 
     ClientRepository clientRepository;
+
+    private CommandeClientRepository commandeClientRepository;
 
     public ClientServiceImpl(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
@@ -95,6 +100,12 @@ public class ClientServiceImpl  implements ClientService {
         {
             log.error("Client is NULL");
             return;
+        }
+        List<CommandeClient> commandeClients = commandeClientRepository.findAllByClientId(id);
+        if (!commandeClients.isEmpty())
+        {
+            log.error("Impossible de supprimer ce client car, il est deja utilise");
+            throw  new InvalidOperationException("Impossible de supprimer ce client car, il est deja utilise dans les commandes clients", ErrorCodes.CLIENT_ALREADY_IN_USE);
         }
 
         clientRepository.deleteById(id);
