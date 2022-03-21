@@ -30,7 +30,8 @@ public interface CommandeClientService {
     // Delete article == delete ligneCommandeClient
     CommandeClientDto deleteArticle(Long idCommande, Long idLigneCommande);
 
-    List<LigneCommandeClientDto>  findAllLignesCommandeClientByCommandeClietId(Long idCommande);
+    List<LigneCommandeClientDto>  findAllLignesCommandeClientByCommandeClientId(Long idCommande);
+
 
 
 }

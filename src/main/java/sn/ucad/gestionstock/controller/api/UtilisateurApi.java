@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import sn.ucad.gestionstock.dto.ChangerMotDePasseUtilisateurDto;
 import sn.ucad.gestionstock.dto.UtilisateurDto;
 
 import java.util.List;
@@ -35,4 +36,8 @@ public interface UtilisateurApi {
 
     @DeleteMapping(value = APP_ROOT + "/utilisateurs/{idUtilisateur}")
     void   deleteById(@PathVariable("idUtilisateur") Long id);
+
+    @PatchMapping(value = APP_ROOT + "/utilisateurs/changepassword")
+    UtilisateurDto changerMotDePasse(@RequestBody ChangerMotDePasseUtilisateurDto dto);
+
 }

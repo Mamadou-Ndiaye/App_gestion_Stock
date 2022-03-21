@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import sn.ucad.gestionstock.model.CommandeFournisseur;
+import sn.ucad.gestionstock.model.EtatCommande;
 import sn.ucad.gestionstock.model.Fournisseur;
 import sn.ucad.gestionstock.model.LigneCommandeFournisseur;
 
@@ -29,6 +30,8 @@ public class CommandeFournisseurDto {
     //@ManyToOne
     private FournisseurDto fournisseurDto;
 
+    private EtatCommande etatCommande;
+
     private Long idEntreprise;
 
 
@@ -50,6 +53,7 @@ public class CommandeFournisseurDto {
                 .dateCommande(commandeFournisseur.getDateCommande())
                 .idEntreprise(commandeFournisseur.getIdEntreprise())
                 .code(commandeFournisseur.getCode())
+                .etatCommande(commandeFournisseur.getEtatCommande())
                 .fournisseurDto(FournisseurDto.fromEntity(commandeFournisseur.getFournisseur()))
                 .build();
     }
@@ -67,7 +71,14 @@ public class CommandeFournisseurDto {
                 .dateCommande(commandeFournisseurDto.getDateCommande())
                 .idEntreprise(commandeFournisseurDto.getIdEntreprise())
                 .code(commandeFournisseurDto.getCode())
+                .etatCommande(commandeFournisseurDto.getEtatCommande())
                 .fournisseur(FournisseurDto.toEntity(commandeFournisseurDto.getFournisseurDto()))
                 .build();
     }
+
+    public  boolean isCommandeClientLivree()
+    {
+        return  EtatCommande.LIVREE.equals(this.etatCommande);
+    }
+
 }

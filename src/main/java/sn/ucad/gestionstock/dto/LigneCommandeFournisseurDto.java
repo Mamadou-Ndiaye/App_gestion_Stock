@@ -28,6 +28,8 @@ public class LigneCommandeFournisseurDto {
     // @JoinColumn(name = "idCommandeFournisseur")
     private CommandeFournisseurDto commandeFournisseurDto;
 
+    private BigDecimal quantite;
+
     private Long idEntreprise;
 
     public static LigneCommandeFournisseurDto  fromEntity(LigneCommandeFournisseur ligneCommandeFournisseur)
@@ -41,7 +43,8 @@ public class LigneCommandeFournisseurDto {
         return  LigneCommandeFournisseurDto.builder()
                 .idLigneCdeFrs(ligneCommandeFournisseur.getIdLigneCdeFrs())
                 .idEntreprise(ligneCommandeFournisseur.getIdEntreprise())
-                //.articleDto(ligneCommandeFournisseur.getArticle())
+                .quantite(ligneCommandeFournisseur.getQuantite())
+                .articleDto(ArticleDto.fromEntity(ligneCommandeFournisseur.getArticle()))
                 //.commandeFournisseurDto(ligneCommandeFournisseur.getCommandeFournisseur())
                 .build();
     }
@@ -56,6 +59,8 @@ public class LigneCommandeFournisseurDto {
 
         return  LigneCommandeFournisseur.builder()
                 .idLigneCdeFrs(ligneCommandeFournisseurDto.getIdLigneCdeFrs())
+                .quantite(ligneCommandeFournisseurDto.getQuantite())
+                .article(ArticleDto.toEntity(ligneCommandeFournisseurDto.getArticleDto()))
                 .idEntreprise(ligneCommandeFournisseurDto.getIdEntreprise())
                 .build();
     }

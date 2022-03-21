@@ -24,7 +24,7 @@ public interface MvtStkApi {
     @PostMapping(APP_ROOT + "/mvtstk/entree")
     MvtStkDto entreeStock(@RequestBody MvtStkDto dto);
 
-    @PostMapping(APP_ROOT + "/mvtstk/entree")
+    @PostMapping(APP_ROOT + "/mvtstk/sortie")
     MvtStkDto sortieStock(@RequestBody MvtStkDto dto);
 
     @PostMapping(APP_ROOT + "/mvtstk/correctionpos")

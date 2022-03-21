@@ -4,6 +4,7 @@ package sn.ucad.gestionstock.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import sn.ucad.gestionstock.controller.api.UtilisateurApi;
+import sn.ucad.gestionstock.dto.ChangerMotDePasseUtilisateurDto;
 import sn.ucad.gestionstock.dto.UtilisateurDto;
 import sn.ucad.gestionstock.services.UtilisateurService;
 
@@ -53,5 +54,10 @@ public class UtilisateurController implements UtilisateurApi {
     @Override
     public void deleteById(Long id) {
            utilisateurService.deleteById(id);
+    }
+
+    @Override
+    public UtilisateurDto changerMotDePasse(ChangerMotDePasseUtilisateurDto dto) {
+        return  utilisateurService.changerMotDePasse(dto);
     }
 }

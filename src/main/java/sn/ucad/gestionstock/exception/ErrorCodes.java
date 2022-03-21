@@ -16,6 +16,7 @@ public enum ErrorCodes {
 
     COMMANDE_FOURNISSEUR_NOT_FOUND(5000),
     COMMANDE_FOURNISSEUR_NOT_VALID(5001),
+    COMMANDE_FOURNISSEUR_NON_MODIFIABLE(5002),
 
     ENTREPRISE_NOT_FOUND(6000),
     ENTREPRISE_NOT_VALID(6001),
@@ -44,8 +45,8 @@ public enum ErrorCodes {
     VENTE_NOT_VALID(13001),
    // liste des Exceptions technique
     UPDATE_PHOTO_EXCEPTION(140000) ,
-    UNKNOW_CONTEXT(15000)
-    ;
+    UNKNOW_CONTEXT(15000),
+   ;
 
     private int code;
 

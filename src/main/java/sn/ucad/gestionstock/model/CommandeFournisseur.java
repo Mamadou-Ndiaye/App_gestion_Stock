@@ -24,6 +24,8 @@ public class CommandeFournisseur extends  AbstractEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCommande;
 
+    private EtatCommande  etatCommande;
+
     @ManyToOne
     private  Fournisseur fournisseur;
 

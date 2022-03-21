@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 public class MvtStkController implements MvtStkApi {
 
-    MvtStkService mvtStkService;
+    private  MvtStkService mvtStkService;
 
     @Autowired
     public MvtStkController(MvtStkService mvtStkService) {

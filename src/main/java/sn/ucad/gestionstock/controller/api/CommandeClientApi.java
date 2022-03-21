@@ -42,7 +42,7 @@ public interface CommandeClientApi {
 
 
     @GetMapping(value =  APP_ROOT+ "/commandeclients/ligneCommande/{idCommande}" , produces = MediaType.APPLICATION_JSON_VALUE)
-    List<LigneCommandeClientDto>  findAllLignesCommandeClientByCommandeClietId(@PathVariable("idCommande") Long idCommande);
+    List<LigneCommandeClientDto>  findAllLignesCommandeClientByCommandeClientId(@PathVariable("idCommande") Long idCommande);
 
     @ApiOperation(value = "rechercher  une commande client !", notes = "Cette methode permet de rechercher une commande client dans la BDD avec son ID",response = CommandeClientDto.class)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "La commande client a été trouvé dans la base de données"),@ApiResponse(code = 404, message = "Aucun Commande client n'a été trouvé dans la BDD avec l ID fournie")})

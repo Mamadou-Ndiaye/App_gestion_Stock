@@ -56,8 +56,8 @@ public class CommandeClientController  implements CommandeClientApi {
     }
 
     @Override
-    public List<LigneCommandeClientDto> findAllLignesCommandeClientByCommandeClietId(Long idCommande) {
-        return  commandeClientService.findAllLignesCommandeClientByCommandeClietId(idCommande);
+    public List<LigneCommandeClientDto> findAllLignesCommandeClientByCommandeClientId(Long idCommande) {
+        return  commandeClientService.findAllLignesCommandeClientByCommandeClientId(idCommande);
     }
 
     @Override

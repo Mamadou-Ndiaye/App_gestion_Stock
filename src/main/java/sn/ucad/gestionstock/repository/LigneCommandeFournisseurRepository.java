@@ -12,4 +12,6 @@ import java.util.List;
 public interface LigneCommandeFournisseurRepository extends JpaRepository<LigneCommandeFournisseur,Long> {
 
    List<LigneCommandeFournisseur> findAllByArticleId(Long idArticle);
+
+    List<LigneCommandeFournisseur> findAllByCommandeFournisseurId(Long idCommande);
 }

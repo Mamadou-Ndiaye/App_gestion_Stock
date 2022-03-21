@@ -8,7 +8,10 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import sn.ucad.gestionstock.dto.CommandeClientDto;
 import sn.ucad.gestionstock.dto.CommandeFournisseurDto;
+import sn.ucad.gestionstock.dto.LigneCommandeFournisseurDto;
+import sn.ucad.gestionstock.model.EtatCommande;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static sn.ucad.gestionstock.utils.Constatnts.APP_ROOT;
@@ -43,4 +46,24 @@ public interface CommandeFournisseurApi {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "La commande fournisseur a été trouvé dans la base de données"),@ApiResponse(code = 404, message = "Aucune commande fournisseur n'a été trouvé dans la BDD avec l ID fournie")})
     @DeleteMapping(value = APP_ROOT + "/commandefournisseurs/delete/{idCmdFournisseur}")
     void   deleteById(@PathVariable("idCmdFournisseur") Long id);
+
+
+    @PatchMapping(value =APP_ROOT + "/commandefourniseurs/update/etat/{idCommande}/{etatCommande}", consumes = MediaType.APPLICATION_JSON_VALUE, produces =  MediaType.APPLICATION_JSON_VALUE)
+    CommandeFournisseurDto updateEtatCommandeClient(@PathVariable("idCommande") Long id,@PathVariable("etatCommande") EtatCommande etatCommande);
+
+    @PatchMapping(value =APP_ROOT + "/commandefournisseurs/update/quantite/{idCommande}/{idLigneCommande}/{quantite}", consumes = MediaType.APPLICATION_JSON_VALUE, produces =  MediaType.APPLICATION_JSON_VALUE)
+    CommandeFournisseurDto updateQuantiteCommande(@PathVariable("idCommande") Long idCommande,@PathVariable("idLigneCommande") Long idLigneCommande,@PathVariable("quantite") BigDecimal quantite);
+
+    @PatchMapping(value =APP_ROOT + "/commandeclients/update/client/{idCommande}/{idFournisseur}", consumes = MediaType.APPLICATION_JSON_VALUE, produces =  MediaType.APPLICATION_JSON_VALUE)
+    CommandeFournisseurDto updateFournisseur(@PathVariable("idCommande") Long idCommande, @PathVariable("idFournisseur") Long idFournisseur);
+
+    @PatchMapping(value =APP_ROOT + "/commandefournisseurs/update/article/{idCommande}/{idLigneCommande}/{idLigneCommande}", consumes = MediaType.APPLICATION_JSON_VALUE, produces =  MediaType.APPLICATION_JSON_VALUE)
+    CommandeFournisseurDto updateArticle(@PathVariable("idCommande")Long idCommande,@PathVariable("idLigneCommande") Long idLigneCommande,@PathVariable("idLigneCommande") Long newIdArticle);
+
+    // Delete article == delete ligneCommandeClient
+    @DeleteMapping(value = APP_ROOT +"/commandefournisseurs/delete/article/{idCommande}/{idLigneCommande}")
+    CommandeFournisseurDto deleteArticle(@PathVariable("idCommande") Long idCommande,@PathVariable("idLigneCommande") Long idLigneCommande);
+
+    @GetMapping(value =  APP_ROOT+ "/commandefournisseurs/ligneCommande/{idCommande}" , produces = MediaType.APPLICATION_JSON_VALUE)
+    List<LigneCommandeFournisseurDto>  findAllLignesCommandeFournisseurByCommandeFournisseurId(@PathVariable("idCommande") Long idCommande);
 }

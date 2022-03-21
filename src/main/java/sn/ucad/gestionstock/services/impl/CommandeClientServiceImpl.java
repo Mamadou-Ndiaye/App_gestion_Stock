@@ -262,10 +262,11 @@ public class CommandeClientServiceImpl implements CommandeClientService {
     }
 
     @Override
-    public List<LigneCommandeClientDto> findAllLignesCommandeClientByCommandeClietId(Long idCommande) {
+    public List<LigneCommandeClientDto> findAllLignesCommandeClientByCommandeClientId(Long idCommande) {
         return ligneCommandeClientRepository.findAllByCommandeClientId(idCommande).stream()
                 .map(LigneCommandeClientDto::fromEntity)
                 .collect(Collectors.toList());
+
     }
 
     @Override
@@ -348,4 +349,6 @@ public class CommandeClientServiceImpl implements CommandeClientService {
         });
 
     }
+
+
 }
