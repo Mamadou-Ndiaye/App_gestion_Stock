@@ -14,6 +14,7 @@ import sn.ucad.gestionstock.exception.ErrorCodes;
 import sn.ucad.gestionstock.exception.InvalidEntityException;
 import sn.ucad.gestionstock.exception.InvalidOperationException;
 import sn.ucad.gestionstock.model.Fournisseur;
+import sn.ucad.gestionstock.model.Roles;
 import sn.ucad.gestionstock.model.Utilisateur;
 import sn.ucad.gestionstock.repository.UtilisateurRepository;
 import sn.ucad.gestionstock.services.UtilisateurService;
@@ -53,9 +54,14 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             throw  new InvalidEntityException("L'Utilisateur n'est pas valide", ErrorCodes.UTILISATEUR_NOT_VALID);
 
         }
+        if (utilisateurRepository.findByMail(utilisateurDto.getMail()).isPresent()) {
+            log.warn("User already exists");
+            throw new RuntimeException("User already exists");
+        }
         utilisateurDto.setMotDePasse(bCryptEncoder.encode(utilisateurDto.getMotDePasse()));
-        /*log.info(" ******** Mot de Passe *******************{}  " + utilisateurDto.getMotDePasse());
-        log.info(" ******** Mot de Mail *******************{}  " + utilisateurDto.getMail());*/
+        log.info(" ******** Mot de Passe *******************{}  " + utilisateurDto.getMotDePasse());
+        log.info(" ******** Mot de Mail *******************{}  " + utilisateurDto.getMail());
+        utilisateurDto.getRolesDtos().forEach(rolesDto -> log.info("****** Role utilisateur",rolesDto.getRoleName()));
 
         return  UtilisateurDto.fromEntity(utilisateurRepository.save(UtilisateurDto.toEntity(utilisateurDto)));
     }

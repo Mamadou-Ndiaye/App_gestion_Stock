@@ -58,6 +58,7 @@ public class UtilisateurDto {
                  .dateDeNaissance(utilisateur.getDateDeNaissance())
                  .motDePasse(utilisateur.getMotDePasse())
                  .photo(utilisateur.getPhoto())
+                 .rolesDtos((List<RolesDto>) UtilisateurDto.fromEntity((Utilisateur) utilisateur.getRoles()))
                  .adresseDto(AdresseDto.fromEntity(utilisateur.getAdresse()))
                  .actived(utilisateur.isActived())
                  .entrepriseDto(EntrepriseDto.fromEntity(utilisateur.getEntreprise()))
@@ -72,6 +73,17 @@ public class UtilisateurDto {
             // TODO
         }
 
+    /*    Utilisateur  utilisateur = new Utilisateur();
+        utilisateur.setIdUtilisateur(utilisateurDto.getIdUtilisateur());
+        utilisateur.setMail(utilisateurDto.getMail());
+        utilisateur.setNom(utilisateurDto.getNom());
+        utilisateur.setPrenom(utilisateurDto.getPrenom());
+        utilisateur.setActived(utilisateurDto.isActived());
+        utilisateur.setMotDePasse(utilisateurDto.getMotDePasse());
+        utilisateur.setAdresse(AdresseDto.toEntity(utilisateurDto.getAdresseDto()));
+        utilisateur.setRoles((List<Roles>) RolesDto.toEntity((RolesDto) utilisateurDto.getRolesDtos()));
+        utilisateur.setDateDeNaissance(utilisateurDto.get);*/
+
         return Utilisateur.builder()
                 .idUtilisateur(utilisateurDto.getIdUtilisateur())
                 .nom(utilisateurDto.getNom())
@@ -81,6 +93,7 @@ public class UtilisateurDto {
                 .photo(utilisateurDto.getPhoto())
                 .dateDeNaissance(utilisateurDto.getDateDeNaissance())
                 .adresse(AdresseDto.toEntity(utilisateurDto.getAdresseDto()))
+                .roles((List<Roles>) UtilisateurDto.toEntity((UtilisateurDto) utilisateurDto.getRolesDtos()))
                 .entreprise(EntrepriseDto.toEntity(utilisateurDto.getEntrepriseDto()))
                 .actived(utilisateurDto.isActived())
                 .build();
