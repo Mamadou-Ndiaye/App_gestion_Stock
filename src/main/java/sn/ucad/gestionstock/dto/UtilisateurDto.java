@@ -36,7 +36,7 @@ public class UtilisateurDto {
 
 
     //@OneToMany(mappedBy = "utilisateur")
-    @JsonIgnore
+    //@JsonIgnore
     List<RolesDto> rolesDtos;
 
     //@ManyToOne
@@ -50,7 +50,23 @@ public class UtilisateurDto {
               // TODO
          }
 
-         return  UtilisateurDto.builder()
+        UtilisateurDto  utilisateurDto = new UtilisateurDto();
+        utilisateurDto.setIdUtilisateur(utilisateur.getIdUtilisateur());
+        utilisateurDto.setMail(utilisateur.getMail());
+        utilisateurDto.setNom(utilisateur.getNom());
+        utilisateurDto.setPrenom(utilisateur.getPrenom());
+        utilisateurDto.setActived(utilisateur.isActived());
+        utilisateurDto.setMotDePasse(utilisateur.getMotDePasse());
+        utilisateurDto.setPhoto(utilisateur.getPhoto());
+        utilisateurDto.setAdresseDto(AdresseDto.fromEntity(utilisateur.getAdresse()));
+        //List<RolesDto> roles = RolesDto.fromEntity(utilisateur.getRoles());
+        utilisateurDto.setRolesDtos(RolesDto.fromEntity(utilisateur.getRoles()));
+        // utilisateurDto.setRolesDtos(roles);
+        utilisateurDto.setDateDeNaissance(utilisateur.getDateDeNaissance());
+
+        return  utilisateurDto;
+
+         /*return  UtilisateurDto.builder()
                  .idUtilisateur(utilisateur.getIdUtilisateur())
                  .nom(utilisateur.getNom())
                  .prenom(utilisateur.getPrenom())
@@ -58,11 +74,11 @@ public class UtilisateurDto {
                  .dateDeNaissance(utilisateur.getDateDeNaissance())
                  .motDePasse(utilisateur.getMotDePasse())
                  .photo(utilisateur.getPhoto())
-                 .rolesDtos((List<RolesDto>) UtilisateurDto.fromEntity((Utilisateur) utilisateur.getRoles()))
+                 //.rolesDtos(RolesDto.fromEntity(utilisateur.getRoles()));
                  .adresseDto(AdresseDto.fromEntity(utilisateur.getAdresse()))
                  .actived(utilisateur.isActived())
                  .entrepriseDto(EntrepriseDto.fromEntity(utilisateur.getEntreprise()))
-                 .build();
+                 .build();*/
     }
 
     public static Utilisateur toEntity(UtilisateurDto utilisateurDto)
@@ -73,18 +89,23 @@ public class UtilisateurDto {
             // TODO
         }
 
-    /*    Utilisateur  utilisateur = new Utilisateur();
+        Utilisateur  utilisateur = new Utilisateur();
         utilisateur.setIdUtilisateur(utilisateurDto.getIdUtilisateur());
         utilisateur.setMail(utilisateurDto.getMail());
         utilisateur.setNom(utilisateurDto.getNom());
         utilisateur.setPrenom(utilisateurDto.getPrenom());
         utilisateur.setActived(utilisateurDto.isActived());
         utilisateur.setMotDePasse(utilisateurDto.getMotDePasse());
+        utilisateur.setPhoto(utilisateurDto.getPhoto());
         utilisateur.setAdresse(AdresseDto.toEntity(utilisateurDto.getAdresseDto()));
-        utilisateur.setRoles((List<Roles>) RolesDto.toEntity((RolesDto) utilisateurDto.getRolesDtos()));
-        utilisateur.setDateDeNaissance(utilisateurDto.get);*/
+        //List<Roles> roles = RolesDto.toEntity(utilisateurDto.getRolesDtos());
+        utilisateur.setRoles(RolesDto.toEntity(utilisateurDto.getRolesDtos()));
+        // utilisateur.setRoles(roles);
+        utilisateur.setDateDeNaissance(utilisateurDto.getDateDeNaissance());
 
-        return Utilisateur.builder()
+        return  utilisateur;
+
+       /* return Utilisateur.builder()
                 .idUtilisateur(utilisateurDto.getIdUtilisateur())
                 .nom(utilisateurDto.getNom())
                 .prenom(utilisateurDto.getPrenom())
@@ -93,9 +114,9 @@ public class UtilisateurDto {
                 .photo(utilisateurDto.getPhoto())
                 .dateDeNaissance(utilisateurDto.getDateDeNaissance())
                 .adresse(AdresseDto.toEntity(utilisateurDto.getAdresseDto()))
-                .roles((List<Roles>) UtilisateurDto.toEntity((UtilisateurDto) utilisateurDto.getRolesDtos()))
+                .roles(RolesDto.toEntity(utilisateurDto.getRolesDtos())
                 .entreprise(EntrepriseDto.toEntity(utilisateurDto.getEntrepriseDto()))
                 .actived(utilisateurDto.isActived())
-                .build();
+                .build();*/
     }
 }

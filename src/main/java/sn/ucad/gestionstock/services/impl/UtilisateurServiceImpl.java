@@ -59,9 +59,17 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             throw new RuntimeException("User already exists");
         }
         utilisateurDto.setMotDePasse(bCryptEncoder.encode(utilisateurDto.getMotDePasse()));
+        utilisateurDto.setRolesDtos(utilisateurDto.getRolesDtos());
+
+       /* utilisateurDto.setRolesDtos(utilisateurDto.getRolesDtos().stream().map(r -> {
+            Roles roles = new Roles();
+            roles.setRoleName(r.getRoleName());
+
+        }).collect(Collectors.toList()));*/
+
         log.info(" ******** Mot de Passe *******************{}  " + utilisateurDto.getMotDePasse());
         log.info(" ******** Mot de Mail *******************{}  " + utilisateurDto.getMail());
-        utilisateurDto.getRolesDtos().forEach(rolesDto -> log.info("****** Role utilisateur",rolesDto.getRoleName()));
+        utilisateurDto.getRolesDtos().forEach(rolesDto -> log.info(" ******** Role utilisateur  ======********",rolesDto.getRoleName()));
 
         return  UtilisateurDto.fromEntity(utilisateurRepository.save(UtilisateurDto.toEntity(utilisateurDto)));
     }

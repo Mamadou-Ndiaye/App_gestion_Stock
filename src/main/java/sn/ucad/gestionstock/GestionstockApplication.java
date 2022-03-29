@@ -15,6 +15,7 @@ import sn.ucad.gestionstock.repository.RolesRepository;
 import sn.ucad.gestionstock.services.UtilisateurService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -48,21 +49,26 @@ public class GestionstockApplication implements CommandLineRunner {
 
 		rolesDtos.add(adminDto);
 
+
 		AdresseDto adresse1Dto = new AdresseDto("Guédiawaye","Darou","Dakar","5005","SEN");
 		String nom ="Ndiaye";
 		UtilisateurDto utilisateurDto = new UtilisateurDto();
 		utilisateurDto.setMotDePasse("Passer123");
 		utilisateurDto.setPrenom("Mamadou");
+		utilisateurDto.setNom(nom);
 		utilisateurDto.setMail("mamadou.ndiaye@yopmail.com");
 		utilisateurDto.setRolesDtos(rolesDtos);
 		utilisateurDto.setAdresseDto(adresse1Dto);
 		utilisateurDto.setPhoto("maPhoto");
-		utilisateurService.save(utilisateurDto);
+		utilisateurDto.setDateDeNaissance(new Date());
+		//utilisateurService.save(utilisateurDto);
 
-		utilisateurService.save(new UtilisateurDto(null,"Sy","Mouhamed","mouhamed@yopmail.com","Passer123","maPhoto",new AdresseDto("K Masseur","Diamniadio","Dakar","5005","SEN"),new Date(),true,null,rolesDtos,null));
-		utilisateurService.save(new UtilisateurDto(null,"Diop","Fatou","fatou@yopmail.com","Passer123","maPhoto",new AdresseDto("Nibodji","Pikine","Kaolack","5005","SEN"),new Date(),true,null,rolesDtos,null));
-		utilisateurService.save(new UtilisateurDto(null,"Fall","Astou","astou@yopmail.com","Passer123","maPhoto",new AdresseDto("Touba","Pikine","Dakar","5005","SEN"),new Date(),true,null,rolesDtos,null));
+		utilisateurService.save(new UtilisateurDto(null,"Sy","Mouhamed","mouhamed@yopmail.com","Passer123","maPhoto",new AdresseDto("K Masseur","Diamniadio","Dakar","5005","SEN"),new Date(),true,null, Arrays.asList(adminDto),null));
+		utilisateurService.save(new UtilisateurDto(null,"Diop","Fatou","fatou@yopmail.com","Passer123","maPhoto",new AdresseDto("Nibodji","Pikine","Kaolack","5005","SEN"),new Date(),true,null,Arrays.asList(adminDto),null));
+		//utilisateurService.save(new UtilisateurDto(null,"Fall","Astou","astou@yopmail.com","Passer123","maPhoto",new AdresseDto("Touba","Pikine","Dakar","5005","SEN"),new Date(),true,null,rolesDtos,null));
 
 
 	}
 }
+
+//  eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYW1hZG91Lm5kaWF5ZUB5b3BtYWlsLmNvbSIsImV4cCI6MTY0ODU3Mzk5MiwiaWF0IjoxNjQ4NTU1OTkyfQ.Ex_S_hfhPjMyj17Bimxu5-ONlRUqlFOAF-LOMUVB7XPJvngE8PUSHBrCIX8uxnJ0n36CRKFd5GIDNikClpqjpg

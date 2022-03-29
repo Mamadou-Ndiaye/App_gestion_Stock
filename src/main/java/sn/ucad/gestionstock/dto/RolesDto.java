@@ -1,5 +1,6 @@
 package sn.ucad.gestionstock.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Data
@@ -30,6 +33,7 @@ public class RolesDto {
 
     // @ManyToOne
     // @JoinColumn(name = "idUtilisateur")
+
     private UtilisateurDto utilisateurDto;
 
     public static RolesDto fromEntity(Roles roles)
@@ -43,9 +47,20 @@ public class RolesDto {
         return  RolesDto.builder()
                 .idRole(roles.getIdRole())
                 .roleName(roles.getRoleName())
-                .utilisateurDto(UtilisateurDto.fromEntity(roles.getUtilisateur()))
-                .idEntreprise(roles.getIdEntreprise())
+                //.utilisateurDto(UtilisateurDto.fromEntity(roles.getUtilisateur()))
+                //.idEntreprise(roles.getIdEntreprise())
                 .build();
+    }
+
+    public static List<RolesDto> fromEntity(List<Roles> roles)
+    {
+        if ( roles == null)
+        {
+            return  null;
+            // TODO
+        }
+
+        return roles.stream().map(role ->fromEntity(role) ).collect(Collectors.toList());
     }
 
     public static Roles toEntity(RolesDto rolesDto)
@@ -58,8 +73,18 @@ public class RolesDto {
         return  Roles.builder()
                 .idRole(rolesDto.getIdRole())
                 .roleName(rolesDto.getRoleName())
-                .utilisateur(UtilisateurDto.toEntity(rolesDto.getUtilisateurDto()))
-                .idEntreprise(rolesDto.getIdEntreprise())
+               // .utilisateur(UtilisateurDto.toEntity(rolesDto.getUtilisateurDto()))
+              //  .idEntreprise(rolesDto.getIdEntreprise())
                 .build();
+    }
+
+    public static List<Roles> toEntity(List<RolesDto> rolesDto)
+    {
+        if( rolesDto == null)
+        {
+            return  null;
+        }
+
+        return  rolesDto.stream().map(roleDto->toEntity(roleDto)).collect(Collectors.toList());
     }
 }
