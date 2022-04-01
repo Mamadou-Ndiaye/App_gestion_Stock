@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sn.ucad.gestionstock.dto.ArticleDto;
 import sn.ucad.gestionstock.dto.LigneCommandeClientDto;
@@ -19,12 +20,13 @@ import static   sn.ucad.gestionstock.utils.Constatnts.APP_ROOT;
 public interface ArticleApi {
 
 
-
+   // @PreAuthorize("hasRole('ADMIN')")  //@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
    @ApiOperation(value = "Enregister  un article !", notes = "Cette methode permet d enregistrer ou modifier un article",response = ArticleDto.class)
    @ApiResponses(value = {@ApiResponse(code = 200, message = "L Objet article crée / modifié"), @ApiResponse(code = 404, message = "L Objet article n 'est pas valide")})
    @PostMapping(value = APP_ROOT + "/articles/create" , consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     ArticleDto save(@RequestBody  ArticleDto articleDto);
 
+    // @PreAuthorize("hasRole('ADMIN')")  //@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
   @ApiOperation(value = "rechercher  un article !", notes = "Cette methode permet de rechercher un article dans la BDD avec son ID",response = ArticleDto.class)
   @ApiResponses(value = {@ApiResponse(code = 200, message = "L'Article a été trouvé dans la base de données"),@ApiResponse(code = 404, message = "Aucun article n'a été trouvé dans la BDD avec l ID fournie")})
   @GetMapping(value = APP_ROOT + "/articles/{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)

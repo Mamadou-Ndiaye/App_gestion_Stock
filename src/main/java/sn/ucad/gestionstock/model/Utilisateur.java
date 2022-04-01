@@ -4,6 +4,7 @@ package sn.ucad.gestionstock.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,8 +38,8 @@ public class Utilisateur extends  AbstractEntity {
     private Date dateDeNaissance;
 
 
-    @OneToMany(mappedBy = "utilisateur",fetch = FetchType.EAGER)
-    List<Roles> roles;
+    @ManyToMany(fetch = FetchType.LAZY)
+    List<Roles> roles = new ArrayList<>();
 
     @ManyToOne
     private  Entreprise entreprise;

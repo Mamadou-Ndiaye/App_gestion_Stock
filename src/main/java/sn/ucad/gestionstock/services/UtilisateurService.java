@@ -9,6 +9,8 @@ public interface UtilisateurService {
 
     UtilisateurDto save(UtilisateurDto utilisateurDto);
 
+    public void addRoleToUser(String username, String roleName);
+
     UtilisateurDto  findById(Long id);
 
     List<UtilisateurDto> findAll();

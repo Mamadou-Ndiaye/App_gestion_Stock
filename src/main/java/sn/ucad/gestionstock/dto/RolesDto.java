@@ -34,7 +34,7 @@ public class RolesDto {
     // @ManyToOne
     // @JoinColumn(name = "idUtilisateur")
 
-    private UtilisateurDto utilisateurDto;
+    // private UtilisateurDto utilisateurDto;
 
     public static RolesDto fromEntity(Roles roles)
     {

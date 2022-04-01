@@ -9,5 +9,6 @@ import sn.ucad.gestionstock.model.Roles;
 
 @RepositoryRestResource
 public interface RolesRepository extends JpaRepository<Roles,Long> {
+    Roles findByRoleName(String roleName);
 }
 

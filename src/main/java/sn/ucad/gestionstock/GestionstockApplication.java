@@ -19,6 +19,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import static javafx.scene.input.KeyCode.L;
+
 
 @EnableJpaAuditing
 @SpringBootApplication
@@ -39,11 +41,11 @@ public class GestionstockApplication implements CommandLineRunner {
 
 		List<RolesDto>  rolesDtos = new ArrayList<>();
 
-		Roles admin = rolesRepository.save(new Roles(null, "ADMIN", null, null));
+		Roles admin = rolesRepository.save(new Roles(null, "ADMIN", null));
 		RolesDto adminDto = RolesDto.fromEntity(admin);
-		Roles user1 = rolesRepository.save(new Roles(null, "USER", null, null));
+		Roles user1 = rolesRepository.save(new Roles(null, "USER", null));
 		RolesDto user1Dto = RolesDto.fromEntity(user1);
-		Roles user2 = rolesRepository.save(new Roles(null, "USER", null, null));
+		Roles user2 = rolesRepository.save(new Roles(null, "VENDEUR", null));
 		RolesDto user2Dto = RolesDto.fromEntity(user2);
 
 
@@ -57,15 +59,29 @@ public class GestionstockApplication implements CommandLineRunner {
 		utilisateurDto.setPrenom("Mamadou");
 		utilisateurDto.setNom(nom);
 		utilisateurDto.setMail("mamadou.ndiaye@yopmail.com");
-		utilisateurDto.setRolesDtos(rolesDtos);
+		utilisateurDto.setRolesDtos(Arrays.asList(adminDto,user1Dto));
 		utilisateurDto.setAdresseDto(adresse1Dto);
 		utilisateurDto.setPhoto("maPhoto");
 		utilisateurDto.setDateDeNaissance(new Date());
-		//utilisateurService.save(utilisateurDto);
+		utilisateurService.save(utilisateurDto);
 
 		utilisateurService.save(new UtilisateurDto(null,"Sy","Mouhamed","mouhamed@yopmail.com","Passer123","maPhoto",new AdresseDto("K Masseur","Diamniadio","Dakar","5005","SEN"),new Date(),true,null, Arrays.asList(adminDto),null));
-		utilisateurService.save(new UtilisateurDto(null,"Diop","Fatou","fatou@yopmail.com","Passer123","maPhoto",new AdresseDto("Nibodji","Pikine","Kaolack","5005","SEN"),new Date(),true,null,Arrays.asList(adminDto),null));
-		//utilisateurService.save(new UtilisateurDto(null,"Fall","Astou","astou@yopmail.com","Passer123","maPhoto",new AdresseDto("Touba","Pikine","Dakar","5005","SEN"),new Date(),true,null,rolesDtos,null));
+		utilisateurService.save(new UtilisateurDto(null,"Diop","Fatou","fatou@yopmail.com","Passer123","maPhoto",new AdresseDto("Nibodji","Pikine","Kaolack","5005","SEN"),new Date(),true,null,Arrays.asList(user1Dto),null));
+		utilisateurService.save(new UtilisateurDto(null,"Fall","Astou","astou@yopmail.com","Passer123","maPhoto",new AdresseDto("Touba","Pikine","Dakar","5005","SEN"),new Date(),true,null,Arrays.asList(user2Dto),null));
+
+		utilisateurService.addRoleToUser("mouhamed@yopmail.com", "VENDEUR");
+		/*utilisateurService.addRoleToUser("mamadou.ndiaye@yopmail.com", "ADMIN");
+		utilisateurService.addRoleToUser("mouhamed@yopmail.com", "VENDEUR");
+		utilisateurService.addRoleToUser("fatou@yopmail.com", "USER"); */
+		/*admin.setUtilisateur(UtilisateurDto.toEntity(utilisateurService.findById(1L)));
+		rolesRepository.save(admin);
+		admin.setUtilisateur(UtilisateurDto.toEntity(utilisateurService.findById(2L)));
+
+		user1.setUtilisateur(UtilisateurDto.toEntity(utilisateurService.findById(3L)));
+		rolesRepository.save(user1);
+		user1.setUtilisateur(UtilisateurDto.toEntity(utilisateurService.findById(4L)));
+		rolesRepository.save(user2);*/
+
 
 
 	}

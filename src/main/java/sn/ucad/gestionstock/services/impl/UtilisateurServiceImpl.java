@@ -7,18 +7,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import sn.ucad.gestionstock.dto.ChangerMotDePasseUtilisateurDto;
-import sn.ucad.gestionstock.dto.FournisseurDto;
 import sn.ucad.gestionstock.dto.UtilisateurDto;
 import sn.ucad.gestionstock.exception.EntityNotFoundException;
 import sn.ucad.gestionstock.exception.ErrorCodes;
 import sn.ucad.gestionstock.exception.InvalidEntityException;
 import sn.ucad.gestionstock.exception.InvalidOperationException;
-import sn.ucad.gestionstock.model.Fournisseur;
 import sn.ucad.gestionstock.model.Roles;
 import sn.ucad.gestionstock.model.Utilisateur;
+import sn.ucad.gestionstock.repository.RolesRepository;
 import sn.ucad.gestionstock.repository.UtilisateurRepository;
 import sn.ucad.gestionstock.services.UtilisateurService;
-import sn.ucad.gestionstock.validator.FournisseurValidator;
 import sn.ucad.gestionstock.validator.UtilisateurValidator;
 
 import java.util.List;
@@ -33,12 +31,15 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     UtilisateurRepository utilisateurRepository;
 
+    private RolesRepository rolesRepository;
+
 
     private BCryptPasswordEncoder bCryptEncoder;
 
     @Autowired
-    public UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository,BCryptPasswordEncoder bCryptEncoder) {
+    public UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository, RolesRepository rolesRepository, BCryptPasswordEncoder bCryptEncoder) {
         this.utilisateurRepository = utilisateurRepository;
+        this.rolesRepository = rolesRepository;
         this.bCryptEncoder = bCryptEncoder;
     }
 
@@ -69,9 +70,14 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
         log.info(" ******** Mot de Passe *******************{}  " + utilisateurDto.getMotDePasse());
         log.info(" ******** Mot de Mail *******************{}  " + utilisateurDto.getMail());
-        utilisateurDto.getRolesDtos().forEach(rolesDto -> log.info(" ******** Role utilisateur  ======********",rolesDto.getRoleName()));
 
         return  UtilisateurDto.fromEntity(utilisateurRepository.save(UtilisateurDto.toEntity(utilisateurDto)));
+    }
+
+    public void addRoleToUser(String username, String roleName) {
+         Optional<Utilisateur> user=utilisateurRepository.findByMail(username);
+        Roles role=rolesRepository.findByRoleName(roleName);
+        user.get().getRoles().add(role);
     }
 
     @Override

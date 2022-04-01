@@ -27,6 +27,12 @@ public class UtilisateurController implements UtilisateurApi {
     }
 
     @Override
+    public void addRoleToUser(String username, String roleName) {
+        utilisateurService.addRoleToUser(username, roleName);
+    }
+
+
+    @Override
     public UtilisateurDto findById(Long id) {
         return utilisateurService.findById(id);
     }

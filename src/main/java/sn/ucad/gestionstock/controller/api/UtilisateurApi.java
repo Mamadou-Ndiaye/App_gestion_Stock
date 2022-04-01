@@ -19,6 +19,9 @@ public interface UtilisateurApi {
     @PostMapping(value = APP_ROOT + "/utilisateurs/create",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     UtilisateurDto save(UtilisateurDto utilisateurDto);
 
+    @PostMapping(value = APP_ROOT + "/utilisateurs/addRoleToUser",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void addRoleToUser(String username, String roleName);
+
     @GetMapping(value = APP_ROOT + "/utilisateurs/{idUtilisateur}")
     UtilisateurDto  findById(@PathVariable("idUtilisateur") Long id);
 
