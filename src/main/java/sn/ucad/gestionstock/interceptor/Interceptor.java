@@ -1,11 +1,12 @@
 package sn.ucad.gestionstock.interceptor;
 
+/*
 import com.sun.org.apache.xpath.internal.operations.String;
 import org.hibernate.EmptyInterceptor;
 import org.slf4j.MDC;
 import org.springframework.util.StringUtils;
 
-/*public class Interceptor extends EmptyInterceptor {
+public class Interceptor extends EmptyInterceptor {
     @Override
     public String onPrepareStatement(String sql) {
 

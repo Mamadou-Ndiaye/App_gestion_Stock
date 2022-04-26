@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import sn.ucad.gestionstock.dto.AdresseDto;
 import sn.ucad.gestionstock.dto.RolesDto;
 import sn.ucad.gestionstock.dto.UtilisateurDto;
@@ -18,8 +16,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
-import static javafx.scene.input.KeyCode.L;
 
 
 @EnableJpaAuditing
